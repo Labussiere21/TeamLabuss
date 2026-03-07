@@ -312,6 +312,17 @@
       font-size: 2.2rem;
       margin-bottom: 0.6rem;
       display: block;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .formation-card .card-icon {
+      height: 60px;
+      width: auto;
+      margin: 0 auto 0.6rem;
+      display: block;
+      object-fit: contain;
     }
     .formation-card strong {
       display: block;
@@ -565,6 +576,9 @@
       .hamburger { display: flex; }
       .hero h1 { font-size: 3.8rem; }
       .hero-car-deco { display: none; }
+      
+      /* Formulaire contact responsive */
+      .contact-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -578,7 +592,7 @@
       <li><a href="voiture.html">Voiture</a></li>
       <li><a href="moto.html">Moto & 2-Roues</a></li>
       <li><a href="remorque.html">Remorque</a></li>
-      <li><a href="autre.html">Autres</a></li>
+      <li><a href="bsr.html">AM/BSR</a></li>
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -620,25 +634,25 @@
         <strong>Moto</strong>
         <p>A1, A2, A — toutes cylindrées</p>
       </a>
-      <a class="formation-card" href="autre.html">
+      <a class="formation-card" href="bsr.html">
         <span class="icon">🛵</span>
-        <strong>BSR / AM</strong>
-        <p>Brevet Sécurité Routière, cyclomoteur</p>
+        <strong>Brevet Sécurité Routière</strong>
+        <p>BSR/AM, cyclomoteur</p>
       </a>
       <a class="formation-card" href="remorque.html">
-        <span class="icon">🚛</span>
+        <img src="remorque-maison.png" alt="Remorque" class="card-icon">
         <strong>Remorque</strong>
         <p>Permis BE, attelage caravane</p>
       </a>
-      <a class="formation-card" href="autre.html">
-        <span class="icon">📱</span>
-        <strong>Prépacode</strong>
-        <p>Entraînement en ligne au code</p>
-      </a>
-      <a class="formation-card" href="autre.html">
+      <a class="formation-card" href="permis-b-banque-officielle.html">
         <span class="icon">✅</span>
         <strong>Vérifications Permis B</strong>
         <p>Révisez les questions du code de la route</p>
+      </a>
+      <a class="formation-card" href="manoeuvres-examen.html">
+        <span class="icon">🔄</span>
+        <strong>Manœuvres de l'Examen</strong>
+        <p>Les 9 manœuvres détaillées</p>
       </a>
     </div>
   </section>
@@ -715,20 +729,91 @@
   <section class="avantages" id="contact">
     <p class="section-label">Contactez-nous</p>
     <h2 class="section-title">ON VOUS RÉPOND VITE</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
-      <div class="agence-card" style="border:2px solid var(--gray-bg);">
-        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:1rem;">Par téléphone</h3>
-        <p style="font-size:1.3rem;font-weight:700;"><a href="tel:0380240299" style="color:var(--magenta);text-decoration:none;">03 80 24 02 99</a></p>
-        <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--gray-mid);">Lun–Sam, 9h–19h</p>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1100px;margin:0 auto;align-items:start;" class="contact-grid">
+      
+      <!-- INFOS CONTACT -->
+      <div style="background:var(--white);padding:2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;margin-bottom:1.5rem;letter-spacing:1px;">Contactez-nous</h3>
+        
+        <p style="border-bottom:2px dashed var(--gray-mid);padding-bottom:1.5rem;margin-bottom:1.5rem;line-height:1.8;color:var(--gray-mid);">
+          Pour toute question ou réclamation, s'adresser ici, par mail ou directement à l'accueil.
+        </p>
+
+        <p style="border-bottom:2px dashed var(--gray-mid);padding-bottom:1.5rem;margin-bottom:1.5rem;line-height:1.8;color:var(--gray-mid);font-size:0.95rem;">
+          Pour une réclamation, vous recevrez un accusé de réception sous 48 heures et votre demande sera traitée sous 15 jours.
+        </p>
+
+        <p style="margin-bottom:1rem;">
+          <strong style="color:var(--gray-dark);font-size:1rem;">Adresse :</strong><br>
+          <span style="color:var(--gray-mid);">6, Avenue du 8 Septembre<br>21200 BEAUNE</span>
+        </p>
+
+        <p style="margin-bottom:1rem;">
+          <strong style="color:var(--gray-dark);font-size:1rem;">Email :</strong><br>
+          <a href="/cdn-cgi/l/email-protection#01676d60637472726864736441666c60686d2f626e6c" style="color:var(--magenta);text-decoration:none;font-weight:600;"><span class="__cf_email__" data-cfemail="52343e33302721213b37203712353f333b3e7c313d3f">[email&#160;protected]</span></a>
+        </p>
+
+        <p>
+          <strong style="color:var(--gray-dark);font-size:1rem;">Tel :</strong><br>
+          <a href="tel:0380240299" style="color:var(--magenta);text-decoration:none;font-weight:600;">03 80 24 02 99</a>
+        </p>
       </div>
-      <div class="agence-card" style="border:2px solid var(--gray-bg);">
-        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:1rem;">Par email</h3>
-        <p><a href="/cdn-cgi/l/email-protection#c9a8bcbda6acaaa6a5aca5a8abbcbabaa0acbbacaf89aea4a8a0a5e7aaa6a4" style="color:var(--magenta);font-weight:600;text-decoration:none;font-size:0.9rem;"><span class="__cf_email__" data-cfemail="f7968283989294989b929b96958284849e92859291b7909a969e9bd994989a">[email&#160;protected]</span></a></p>
+
+      <!-- FORMULAIRE CONTACT -->
+      <div style="background:var(--white);padding:2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <form action="https://formspree.io/f/mbdzljgq" method="POST" style="display:flex;flex-direction:column;gap:1rem;">
+          
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Nom *" 
+            required 
+            style="padding:0.8rem;border:none;background:var(--lime);border-radius:4px;font-size:1rem;color:var(--white);"
+            onfocus="this.style.color='var(--white)'"
+          />
+          <style>
+            input::placeholder, textarea::placeholder {
+              color: #1a1a1a !important;
+              opacity: 1;
+            }
+          </style>
+
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email *" 
+            required 
+            style="padding:0.8rem;border:none;background:var(--lime);border-radius:4px;font-size:1rem;color:var(--white);"
+          />
+
+          <input 
+            type="text" 
+            name="subject" 
+            placeholder="Sujet" 
+            style="padding:0.8rem;border:none;background:var(--lime);border-radius:4px;font-size:1rem;color:var(--white);"
+          />
+
+          <textarea 
+            name="message" 
+            placeholder="Message" 
+            rows="6" 
+            required
+            style="padding:0.8rem;border:none;background:var(--lime);border-radius:4px;font-size:1rem;color:var(--white);resize:none;"
+          ></textarea>
+
+          <button 
+            type="submit" 
+            style="padding:0.8rem 1.5rem;background:var(--magenta);color:var(--white);border:none;border-radius:4px;font-size:1rem;font-weight:600;cursor:pointer;align-self:flex-end;transition:background 0.3s;"
+            onmouseover="this.style.background='var(--magenta-light)'"
+            onmouseout="this.style.background='var(--magenta)'"
+          >
+            Envoyer
+          </button>
+
+        </form>
       </div>
-      <div class="agence-card" style="border:2px solid var(--gray-bg);">
-        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:1rem;">Sur Facebook</h3>
-        <p><a href="https://www.facebook.com/Ecole-de-conduite-Labussière-F-920935847937236/" target="_blank" style="color:var(--magenta);font-weight:600;text-decoration:none;">Ecole de Conduite Labussière F.</a></p>
-      </div>
+
     </div>
   </section>
 
@@ -762,43 +847,28 @@
       <div>
         <h4>Formations</h4>
         <ul>
-          <li><a href="#">Permis Voiture (B)</a></li>
-          <li><a href="#">Permis Moto</a></li>
-          <li><a href="#">BSR / AM</a></li>
-          <li><a href="#">Remorque (BE)</a></li>
-          <li><a href="#">Prépacode</a></li>
+          <li><a href="voiture.html">Permis Voiture (B)</a></li>
+          <li><a href="permis-b-banque-officielle.html">Vérifications Permis B</a></li>
+          <li><a href="manoeuvres-examen.html">Manœuvres de l'Examen</a></li>
+          <li><a href="moto.html">Permis Moto</a></li>
+          <li><a href="bsr.html">Brevet Sécurité Routière</a></li>
+          <li><a href="remorque.html">Remorque (BE)</a></li>
         </ul>
       </div>
       <div>
         <h4>Infos</h4>
         <ul>
-          <li><a href="#">Historique</a></li>
-          <li><a href="#">Mentions légales</a></li>
-          <li><a href="#">Plan de gestion des réclamations</a></li>
+          <li><a href="reglement_intérieur.pdf" target="_blank">Règlement Intérieur</a></li>
+          <li><a href="documents.html">Documents & Infos</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Ecole de Conduite Labussière F. — Beaune</span>
+      <span>© 2026 Ecole de Conduite Labussière F. — Beaune</span>
       <a class="fb-link" href="https://www.facebook.com/Ecole-de-conduite-Labussière-F-920935847937236/" target="_blank">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         Facebook
       </a>
     </div>
   </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-
-    // Close menu on link click
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
-
-    // Scroll reveal
-    const observer = new IntersectionObse

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documents & Informations | Auto-École Labussière F.</title>
+  <meta name="description" content="Règlement intérieur, programmes de formation, guides pratiques." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --magenta: #e0007a;
+      --magenta-light: #ff3fa0;
+      --lime: #7fff00;
+      --gray-bg: #f0f0f0;
+      --gray-dark: #2a2a2a;
+      --gray-mid: #555;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--gray-bg); color: var(--gray-dark); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(240,240,240,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--magenta);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--magenta);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gray-dark); font-size: 0.7em; }
+
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-mid);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--magenta);
+      background: rgba(224,0,122,0.08);
+    }
+
+    .nav-cta {
+      background: var(--magenta) !important;
+      color: var(--white) !important;
+      border-radius: 4px !important;
+      padding: 0.5rem 1rem !important;
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--gray-dark); transition: all 0.3s; }
+
+    /* ── MAIN ── */
+    main {
+      margin-top: 80px;
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--gray-dark);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--gray-mid);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── DOCUMENTS GRID ── */
+    .documents-section {
+      margin-bottom: 3rem;
+    }
+
+    .documents-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gray-dark);
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--magenta);
+    }
+
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .doc-card {
+      background: var(--white);
+      border-left: 4px solid var(--magenta);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .doc-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--magenta);
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    .doc-card p {
+      color: var(--gray-mid);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--magenta);
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      width: fit-content;
+    }
+
+    .doc-link:hover {
+      background: var(--magenta-light);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a1a1a;
+      color: rgba(255,255,255,0.6);
+      padding: 3rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-brand .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--magenta);
+      letter-spacing: 2px;
+    }
+
+    footer h4 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 0.5rem; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    footer a:hover { color: var(--magenta); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      main { padding: 2rem 1rem; margin-top: 70px; }
+      .page-header h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo"><span>AUTO-ÉCOLE</span> LABUSSIÈRE</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="voiture.html">Voiture</a></li>
+      <li><a href="moto.html">Moto & 2-Roues</a></li>
+      <li><a href="remorque.html">Remorque</a></li>
+      <li><a href="bsr.html">AM/BSR</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>📄 DOCUMENTS & INFORMATIONS</h1>
+      <p>Accédez à tous nos documents officiels : règlement intérieur, programmes de formation, guides pratiques et ressources pédagogiques.</p>
+    </div>
+
+
+
+    <!-- RÈGLEMENT & ORGANISATION -->
+    <div class="documents-section">
+      <h2>Règlement & Organisation</h2>
+      <div class="documents-grid">
+        <a href="plan_de_gestion_des_reclamations.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Plan de Gestion des Réclamations</h3>
+            <p>Procédure pour formuler une réclamation et modalités de traitement de celle-ci.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- FORMATION PERMIS B & VARIANTES -->
+    <div class="documents-section">
+      <h2>Permis B - Formations & Variantes</h2>
+      <div class="documents-grid">
+        <a href="enjeux_et_deroulement_permis_B.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Enjeux et Déroulement Permis B</h3>
+            <p>Les objectifs de la formation, le déroulement de la formation pratique et les conditions de passage des épreuves.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+        <a href="enjeux_et_deroulement_AAC.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Apprentissage Anticipé de la Conduite (AAC)</h3>
+            <p>Guide complet de la conduite accompagnée : conditions, déroulement, avantages et rendez-vous pédagogiques.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+        <a href="conduite_supervisée.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Conduite Supervisée</h3>
+            <p>Formation en conduite supervisée pour les adultes : conditions, accompagnateur, limitations de vitesse.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- PERMIS MOTO & AUTRES -->
+    <div class="documents-section">
+      <h2>Permis Moto & Formations Spéciales</h2>
+      <div class="documents-grid">
+        <a href="Enjeux_formation_A.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Enjeux Formation A (Moto)</h3>
+            <p>Les objectifs et enjeux de la formation au permis moto catégories A1, A2, A.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+        <a href="enjeux_et_deroulement_formation_BE.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Enjeux Formation BE (Remorque)</h3>
+            <p>Les objectifs de la formation permis BE pour l'attelage de caravane et remorque.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- HANDICAP & ADAPTATIONS -->
+    <div class="documents-section">
+      <h2>Accessibilité & Handicap</h2>
+      <div class="documents-grid">
+        <a href="permis_et_handicap.pdf" target="_blank" class="doc-card">
+          <div>
+            <h3>Permis et Handicap</h3>
+            <p>Guide complet sur les aménagements possibles, les conditions médicales, et les adaptations pour l'examen du permis.</p>
+          </div>
+          <span class="doc-link">📥 Consulter le PDF</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">LABUSSIÈRE F.</div>
+        <p>Ecole de Conduite Labussière F.<br>6, Avenue du 8 Septembre<br>21200 BEAUNE<br><br>03 80 24 02 99<br><a href="/cdn-cgi/l/email-protection#5635393822373522163a37342325253f3324337b343337233833783024"><span class="__cf_email__" data-cfemail="d1b2bebfa5b0b2a591bdb0b3a4a2a2b8b4a3b4fcb3b4b0a4bfb4ffb7a3">[email&#160;protected]</span></a></p>
+      </div>
+      <div>
+        <h4>Formations</h4>
+        <ul>
+          <li><a href="voiture.html">Permis Voiture (B)</a></li>
+          <li><a href="moto.html">Permis Moto</a></li>
+          <li><a href="remorque.html">Remorque (BE)</a></li>
+          <li><a href="bsr.html">AM/BSR</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Infos</h4>
+        <ul>
+          <li><a href="reglement_intérieur.pdf" target="_blank">Règlement Intérieur</a></li>
+          <li><a href="documents.html">Documents & Infos</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Ecole de Conduite Labussière F. — Beaune & Bligny-sur-Ouche
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const hambu

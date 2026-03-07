@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérifications Permis B - Banque Officielle 2023</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #34495e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d5a8c 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 0.9em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .nav-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .module {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        .module-header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .module-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -20px;
+            padding-bottom: 20px;
+        }
+
+        .tab-btn.active {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--accent);
+        }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .question-num {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            line-height: 1.4;
+        }
+
+        .question-text {
+            background: #f8f9fa;
+            padding: 12px;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            color: var(--text);
+        }
+
+        .answer-section {
+            margin-top: 12px;
+        }
+
+        .answer-label {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 0.9em;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .answer-text {
+            background: #d5f4e6;
+            padding: 12px;
+            border-left: 3px solid var(--success);
+            color: #1e5631;
+            border-radius: 4px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .qser-label {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .first-aid-label {
+            font-weight: 600;
+            color: #e74c3c;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .verification-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--light) 0%, #dfe6e9 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            border: 2px dashed var(--accent);
+            color: var(--text);
+            font-size: 0.9em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .filter-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--light);
+            background: white;
+            color: var(--text);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--secondary);
+        }
+
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            color: var(--text);
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--text);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .module-header h2 {
+                font-size: 1.4em;
+            }
+
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text);
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 Vérifications Permis B</h1>
+            <p class="subtitle">Banque Officielle de Questions 2023</p>
+            <p class="info">100 questions - Vérifications techniques, sécurité routière & premiers secours</p>
+        </header>
+
+        <div class="main-nav">
+            <button class="nav-btn active" onclick="switchModule('interieur')">🏠 Intérieures</button>
+            <button class="nav-btn" onclick="switchModule('exterieur')">🚙 Extérieures</button>
+            <button class="nav-btn" onclick="switchModule('secours')">🏥 Premiers Secours</button>
+        </div>
+
+        <!-- MODULE VÉRIFICATIONS INTÉRIEURES -->
+        <div id="interieur" class="module active">
+            <div class="module-header">
+                <h2>🏠 Vérifications Intérieures</h2>
+                <p>Tous les éléments à maîtriser à l'intérieur du véhicule</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('interieur', 'questions')">📋 Questions</button>
+            </div>
+
+            <div id="interieur-questions" class="tab-content active">
+                <input type="text" class="search-box" placeholder="Chercher une question..." onkeyup="filterQuestions(this, 'interieur')">
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="interieur-count">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                </div>
+
+                <div class="questions-grid" id="interieur-grid">
+                    <!-- Questions seront ajoutées par JavaScript -->
+                </div>
+
+                <div class="image-placeholder">📸 Ajouter vos photos ici</div>
+            </div>
+        </div>
+
+        <!-- MODULE VÉRIFICATIONS EXTÉRIEURES -->
+        <div id="exterieur" class="module">
+            <div class="module-header">
+                <h2>🚙 Vérifications Extérieures</h2>
+                <p>Inspection complète de tous les éléments externes</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('exterieur', 'questions')">📋 Questions</button>
+            </div>
+
+            <div id="exterieur-questions" class="tab-content active">
+                <input type="text" class="search-box" placeholder="Chercher une question..." onkeyup="filterQuestions(this, 'exterieur')">
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="exterieur-count">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                </div>
+
+                <div class="questions-grid" id="exterieur-grid">
+                    <!-- Questions seront ajoutées par JavaScript -->
+                </div>
+
+                <div class="image-placeholder">📸 Ajouter vos photos ici</div>
+            </div>
+        </div>
+
+        <!-- MODULE PREMIERS SECOURS -->
+        <div id="secours" class="module">
+            <div class="module-header">
+                <h2>🏥 Premiers Secours</h2>
+                <p>Gestes et procédures d'urgence essentiels</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('secours', 'questions')">📋 Questions</button>
+            </div>
+
+            <div id="secours-questions" class="tab-content active">
+                <input type="text" class="search-box" placeholder="Chercher une question..." onkeyup="filterQuestions(this, 'secours')">
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="secours-count">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                </div>
+
+                <div class="questions-grid" id="secours-grid">
+                    <!-- Questions seront ajoutées par JavaScript -->
+                </div>
+
+                <div class="image-placeholder">📸 Ajouter vos photos ici</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>📚 Banque Officielle de Questions 2023 | © Délégation à la Sécurité Routière</p>
+        <p>Source: DSR/BRPCE - 1er janvier 2023</p>
+    </footer>
+
+    <script>
+        // Banque complète des 100 questions
+        const questions = {
+            interieur: [
+                { num: '19', title: 'Réglage du volant', question: 'Montrez la commande de réglage du volant. Pourquoi est-il important de bien régler son volant ? Citez deux exemples.', answer: 'Le confort de conduite, l\'accessibilité aux commandes, la visibilité du tableau de bord, l\'efficacité des airbags.' },
+                { num: '24', title: 'Emplacement batterie', question: 'Montrez l\'emplacement de la batterie du véhicule.', answer: 'Généralement sous le capot avant.' },
+                { num: '23', title: 'Voyant batterie', question: 'Montrez le voyant d\'alerte signalant un défaut de batterie.', answer: 'Ressemble à une batterie. Se décharge avec feux ou accessoires électriques quand moteur éteint.' },
+                { num: '25', title: 'Voyant freinage', question: 'De quelle couleur est le voyant qui indique une défaillance du système de freinage ?', answer: 'Rouge. Risque de circuler avec frein de parking mal desserré : dégradation du système de freinage.' },
+                { num: '29', title: 'Sécurité enfant', question: 'Montrez le voyant signalant la mauvaise fermeture d\'une portière. Quelle précaution dois-je prendre pour les enfants ?', answer: 'Actionner la sécurité enfant sur les deux portières arrière.' },
+                { num: '39', title: 'Ceinture sécurité', question: 'Montrez le voyant signalant l\'absence de bouclage de la ceinture de sécurité du conducteur. À partir de quel âge un enfant peut-il être installé à l\'avant ?', answer: 'À partir de 10 ans.' },
+                { num: '45', title: 'Appui-tête', question: 'Montrez comment régler la hauteur de l\'appui-tête du siège conducteur. Quelle est son utilité ?', answer: 'Monte et descend l\'appuie-tête. Permet de retenir le mouvement de la tête en cas de choc et de limiter les blessures.' },
+                { num: '03', title: 'Rétroviseur intérieur', question: 'Mettez le rétroviseur intérieur en position "nuit". Quel est l\'intérêt de la position nuit ?', answer: 'Ne pas être ébloui par les feux du véhicule suiveur.' },
+                { num: '33', title: 'Régulateur vitesse', question: 'Montrez la commande permettant d\'actionner le régulateur de vitesse. Comment le désactiver rapidement sans l\'actionner ?', answer: 'Appuyer sur la pédale de frein ou d\'embrayage.' },
+                { num: '37', title: 'Airbag passager', question: 'Montrez la commande permettant de désactiver l\'airbag du passager avant. Dans quelle situation doit-on le désactiver ?', answer: 'Lors du transport d\'un enfant à l\'avant dans un siège auto, dos à la route.' },
+                { num: '11', title: 'Niveau carburant', question: 'Montrez l\'indicateur de niveau de carburant. Quelles précautions lors du remplissage ?', answer: 'Arrêter le moteur, ne pas fumer, ne pas téléphoner.' },
+                { num: '34', title: 'Avertisseur sonore', question: 'Sans l\'actionner, montrez la commande de l\'avertisseur sonore. Quand peut-on l\'utiliser en agglomération ?', answer: 'En cas de danger immédiat.' },
+                { num: '08', title: 'Liquide de frein', question: 'Montrez où s\'effectue le contrôle du niveau du liquide de frein. Quelle est la conséquence d\'un niveau insuffisant ?', answer: 'Une perte d\'efficacité du freinage.' },
+                { num: '22', title: 'Niveau huile', question: 'Montrez où doit s\'effectuer le contrôle du niveau d\'huile moteur. Quel est le principal risque d\'un manque ?', answer: 'Un risque de détérioration ou de casse du moteur.' },
+                { num: '36', title: 'Remplissage huile', question: 'Montrez où s\'effectue le remplissage de l\'huile moteur. Quel est le risque d\'un manque ?', answer: 'Un risque de détérioration ou de casse du moteur.' },
+                { num: '12', title: 'Liquide refroidissement', question: 'Montrez où s\'effectue le remplissage du liquide de refroidissement. Quel est le danger si complété moteur chaud ?', answer: 'Un risque de brûlure.' },
+                { num: '02', title: 'Lave-glace', question: 'Montrez où s\'effectue le remplissage du produit lave-glace. Pourquoi préférer un liquide spécial en hiver ?', answer: 'Pour éviter le gel du liquide.' },
+                { num: '50', title: 'Lave-glace défaut', question: 'Montrez l\'orifice de remplissage du produit lave-glace. Quel est le principal risque d\'une absence de liquide ?', answer: 'Une mauvaise visibilité.' },
+                { num: '49', title: 'Recyclage air', question: 'Montrez la commande de recyclage de l\'air. Quel peut être le risque de maintenir le recyclage prolongé ?', answer: 'Un risque de mauvaise visibilité par buée sur les surfaces vitrées.' },
+                { num: '21', title: 'Désembuage', question: 'Positionnez la commande pour diriger l\'air vers le pare-brise. Citez deux éléments complémentaires pour désembuage efficace.', answer: 'La commande de vitesse de ventilation, la commande d\'air chaud, la climatisation.' },
+                { num: '06', title: 'Gilet visibilité', question: 'Vérifiez la présence du gilet de haute visibilité. En cas de panne, quel autre accessoire de sécurité est obligatoire ?', answer: 'Le triangle de pré-signalisation.' },
+                { num: '09', title: 'Documents véhicule', question: 'Vérifiez la présence du certificat d\'immatriculation. Quels sont les deux autres documents obligatoires ?', answer: 'L\'attestation d\'assurance et le permis de conduire.' },
+                { num: '40', title: 'Documents obligation', question: 'Vérifiez la présence de l\'attestation d\'assurance. Quels sont les deux autres documents obligatoires ?', answer: 'Le certificat d\'immatriculation et le permis de conduire.' },
+                { num: '17', title: 'Éthylotest', question: 'Vérifiez la présence de l\'éthylotest. À partir de quel taux en période probatoire est-on en infraction ?', answer: '0,2 g/l, c\'est à dire 0 verre, car dès le 1er verre ce seuil peut être dépassé.' },
+                { num: '52', title: 'Constat amiable', question: 'Vérifiez la présence du constat amiable. En cas d\'accident, dans quel délai doit-il être transmis ?', answer: '5 jours.' }
+            ],
+            exterieur: [
+                { num: '04', title: 'Pneumatique flanc', question: 'Contrôlez l\'état du flanc sur l\'un des pneumatiques. Citez un endroit où trouver les pressions préconisées.', answer: 'Sur une plaque sur une portière, dans la notice, ou au niveau de la trappe à carburant.' },
+                { num: '32', title: 'Témoin usure pneu', question: 'Sur le flanc d\'un pneumatique, désignez le repère du témoin d\'usure. Qu\'est-ce que l\'aquaplanage ?', answer: 'Présence d\'un film d\'eau entre le pneumatique et la chaussée pouvant entraîner une perte de contrôle.' },
+                { num: '38', title: 'Pression pneumatiques', question: 'À l\'aide de la plaque indicative, donnez la pression pour pneumatiques arrières, véhicule chargé. À quelle fréquence vérifier ?', answer: 'Chaque mois pour utilisation normale et avant chaque long trajet.' },
+                { num: '62', title: 'Pression contrôle', question: 'Montrez sur le tableau de bord le voyant indiquant baisse de pression pneumatique. À quelle fréquence vérifier ?', answer: 'Tous les mois.' },
+                { num: '01', title: 'Hauteur feux', question: 'Montrez la commande de réglage de hauteur des feux. Pourquoi doit-on la régler ?', answer: 'Pour ne pas éblouir les autres usagers.' },
+                { num: '51', title: 'Feux diurnes', question: 'Vérifiez l\'état, propreté et fonctionnement des feux diurnes. Quelle est leur utilité ?', answer: 'Rendre le véhicule plus visible le jour.' },
+                { num: '30', title: 'Feux position', question: 'Contrôlez feux de position à l\'avant et arrière. Par temps clair, à quelle distance doivent-ils être visibles ?', answer: 'À 150 mètres.' },
+                { num: '26', title: 'Feux croisement', question: 'Contrôlez l\'état, propreté et fonctionnement des feux de croisement. Quelles sont les conséquences d\'un mauvais réglage ?', answer: 'Mauvaise vision vers l\'avant et risque d\'éblouissement des autres usagers.' },
+                { num: '20', title: 'Feux route', question: 'Contrôlez l\'état, propreté et fonctionnement des feux de route. Citez un cas d\'utilisation de l\'appel lumineux.', answer: 'Pour avertir de son approche, en cas de danger, à la place de l\'avertisseur sonore.' },
+                { num: '94', title: 'Feux route croisement', question: 'Allumez les feux de route et montrez le voyant correspondant. Quel est le risque lors d\'un croisement ?', answer: 'Un risque d\'éblouissement des autres usagers.' },
+                { num: '56', title: 'Ampoule avant', question: 'Montrez où s\'effectue le changement d\'une ampoule à l\'avant. Quelles conséquences en cas de panne feu croisement ?', answer: 'Mauvaise visibilité et risque d\'être confondu avec un deux roues.' },
+                { num: '58', title: 'Ampoule arrière', question: 'Montrez où s\'effectue le changement d\'une ampoule à l\'arrière. Conséquences si panne feu position arrière ?', answer: 'Être mal vu et un risque de collision.' },
+                { num: '73', title: 'Clignotants', question: 'Contrôlez l\'état, propreté et fonctionnement des clignotants côté trottoir. Quelle signifie clignotement plus rapide ?', answer: 'Non fonctionnement de l\'une des ampoules.' },
+                { num: '16', title: 'Feux brouillard arrière', question: 'Contrôlez l\'état, propreté et fonctionnement des feux brouillard arrière. Dans quels cas les utilise-t-on ?', answer: 'Par temps de brouillard et neige.' },
+                { num: '43', title: 'Feux brouillard allumage', question: 'Allumez les feux de brouillard arrière et montrez le voyant correspondant. Pouvez-vous les utiliser par forte pluie ?', answer: 'Non.' },
+                { num: '31', title: 'Feux détresse', question: 'Actionnez les feux de détresse. Quand les utilise-t-on ?', answer: 'En cas de panne, d\'accident ou de ralentissement important.' },
+                { num: '85', title: 'Feux détresse contrôle', question: 'Contrôlez l\'état, propreté et fonctionnement des feux détresse avant et arrière. Quand les utiliser ?', answer: 'En cas de panne, d\'accident ou de ralentissement important.' },
+                { num: '44', title: 'Feux recul', question: 'Avec l\'assistance de l\'accompagnateur, contrôlez l\'état des feux de recul. Quelles sont leurs deux utilités ?', answer: 'Éclairer la zone de recul la nuit et avertir les autres usagers de la manœuvre.' },
+                { num: '46', title: 'Feux stop', question: 'Avec l\'assistance de l\'accompagnateur, contrôlez l\'état et fonctionnement des feux de stop. Quelle est la conséquence en cas de panne ?', answer: 'Manque d\'information pour usagers suiveurs et risque de collision.' },
+                { num: '90', title: 'Feux stop contrôle', question: 'Avec l\'assistance, contrôlez l\'état, propreté et fonctionnement des feux de stop. Conséquence en cas de panne ?', answer: 'Manque d\'information pour les usagers suiveurs et risque de collision.' },
+                { num: '28', title: 'Catadioptres', question: 'Vérifiez l\'état et propreté des dispositifs réfléchissants. Quelle est l\'utilité ?', answer: 'Rendre visible le véhicule la nuit.' },
+                { num: '05', title: 'Essuie-glaces avant', question: 'Faites fonctionner les essuie-glaces avants sur position la plus rapide. Comment détecter leur usure ?', answer: 'En cas de pluie, quand ils laissent des traces sur le pare-brise.' },
+                { num: '10', title: 'Essuie-glaces contrôle', question: 'Contrôlez l\'état de tous les balais d\'essuie-glace. Quel est le risque avec balais défectueux ?', answer: 'Une mauvaise visibilité en cas d\'intempéries.' },
+                { num: '97', title: 'Essuie-glace arrière', question: 'Faites fonctionner l\'essuie-glace arrière du véhicule. Pour bonne visibilité arrière en pluie, quelle commande ?', answer: 'La commande de désembuage arrière.' },
+                { num: '66', title: 'Lave-glace gicleurs', question: 'Montrez où se situent les gicleurs de lave-glace avant. Conséquence d\'un dispositif défaillant ?', answer: 'Mauvaise visibilité due à l\'impossibilité de nettoyer le pare-brise.' },
+                { num: '06', title: 'Plaques immatriculation', question: 'Vérifiez l\'état et propreté des plaques d\'immatriculation. Quelles précautions avec un porte-vélo ?', answer: 'Plaque d\'immatriculation et les feux doivent être visibles.' },
+                { num: '40', title: 'Éclairage plaque', question: 'Vérifiez le fonctionnement de l\'éclairage de la plaque d\'immatriculation arrière. Cela entraîne-t-il contre-visite ?', answer: 'Oui.' },
+                { num: '13', title: 'Dégivrage lunette', question: 'Actionnez le dégivrage de la lunette arrière et montrez le voyant correspondant. Conséquence d\'une panne ?', answer: 'Insuffisance ou absence de visibilité vers l\'arrière.' },
+                { num: '73', title: 'Dégivrage arrière', question: 'Actionnez le dégivrage de la lunette arrière et montrez le voyant correspondant. Conséquence d\'une panne ?', answer: 'L\'insuffisance ou l\'absence de visibilité vers l\'arrière.' },
+                { num: '48', title: 'Capot fermeture', question: 'Ouvrez et refermez le capot, puis vérifiez sa bonne fermeture. Quel est le risque d\'une mauvaise fermeture ?', answer: 'Un risque d\'ouverture du capot pouvant entraîner un accident.' },
+                { num: '64', title: 'Dispositif sécurité capot', question: 'Procédez à l\'ouverture du capot puis sa fermeture en assurant verrouillage. Utilité du dispositif de sécurité ?', answer: 'Empêcher l\'ouverture du capot en circulation en cas de mauvais verrouillage.' },
+                { num: '60', title: 'Coffre fermeture', question: 'Ouvrez et refermez le coffre, puis vérifiez sa bonne fermeture. Précautions avec poids important ?', answer: 'Augmenter la pression des pneumatiques et régler la hauteur des feux avants.' },
+                { num: '62', title: 'Coffre objects', question: 'Ouvrez et refermez le coffre, puis vérifiez sa bonne fermeture. Risques avec objets sur plage arrière ?', answer: 'Mauvaise visibilité vers arrière et risque de projection en cas de freinage ou choc.' },
+                { num: '61', title: 'Isofix', question: 'Indiquez où se situe les attaches de type Isofix. Peut-on fixer tous les sièges enfant sur Isofix ?', answer: 'Non, uniquement ceux compatibles avec ce type d\'attache.' }
+            ],
+            secours: [
+                { num: '01', title: 'Protéger zone danger', question: 'Comment et pourquoi protéger une zone de danger en cas d\'accident ?', answer: 'En délimitant clairement la zone de façon visible pour protéger les victimes et éviter un sur-accident.' },
+                { num: '10', title: 'Numéros urgence', question: 'Quels sont les numéros d\'urgence à composer ?', answer: '18 (Pompiers), 15 (SAMU), 112 (Appel d\'urgence UE).' },
+                { num: '15', title: 'Informations secours', question: 'Quelles sont les trois informations à transmettre aux services de secours ?', answer: 'Le numéro de téléphone, la nature et la localisation la plus précise du problème.' },
+                { num: '04', title: 'Localisation autoroute', question: 'Sur autoroute, comment indiquer avec précision les lieux de l\'accident ?', answer: 'En indiquant le numéro de l\'autoroute, le sens de circulation et le point kilométrique.' },
+                { num: '09', title: 'Alerte rapide', question: 'Pourquoi l\'alerte auprès des secours doit-elle être rapide et précise ?', answer: 'Pour permettre aux secours d\'apporter les moyens adaptés aux victimes dans le délai le plus court.' },
+                { num: '16', title: 'Moyen alerte', question: 'Par quels moyens doit être réalisée l\'alerte des secours ?', answer: 'Téléphone portable, téléphone fixe ou borne d\'appel d\'urgence.' },
+                { num: '27', title: 'Raccrocher secours', question: 'Lors d\'un appel, pourquoi attendre que le correspondant autorise à raccrocher ?', answer: 'Car il peut nous conseiller ou nous guider jusqu\'à l\'arrivée des secours.' },
+                { num: '28', title: 'Fin appel secours', question: 'À quel moment pouvez-vous mettre fin à un appel avec les secours ?', answer: 'Uniquement quand le correspondant vous invite à le faire.' },
+                { num: '05', title: 'Respiration victime', question: 'Comment vérifier la respiration d\'une victime ?', answer: 'Regarder si le ventre et poitrine se soulèvent et sentir de l\'air à l\'expiration.' },
+                { num: '06', title: 'Perte connaissance', question: 'Qu\'est-ce qu\'une perte de connaissance ?', answer: 'C\'est quand la victime ne répond pas et ne réagit pas mais respire.' },
+                { num: '30', title: 'Position dos risques', question: 'Quels sont les risques pour une personne allongée sur le dos ?', answer: 'L\'arrêt respiratoire et l\'arrêt cardiaque.' },
+                { num: '35', title: 'PLS nécessité', question: 'Pourquoi ne pas laisser inconscient allongé sur le dos ?', answer: 'Risque d\'étouffement par liquides ou chute de la langue en arrière.' },
+                { num: '18', title: 'Position PLS', question: 'Dans quel cas peut-on positionner une victime en PLS ?', answer: 'Si la victime ne répond pas, ne réagit pas et respire.' },
+                { num: '59', title: 'Victimes respiration', question: 'Quels comportements adopter si victime ne répond pas mais respire ?', answer: 'La placer en PLS, alerter secours, surveiller la respiration.' },
+                { num: '29', title: 'Conscience évaluation', question: 'Citez les trois manières d\'évaluer l\'état de conscience d\'une victime.', answer: 'Lui poser questions simples, secouer épaules, prendre main en demandant geste.' },
+                { num: '07', title: 'Dégagement urgence', question: 'Si dégagement urgence nécessaire, où doit être déplacée la victime ?', answer: 'Dans un endroit suffisamment éloigné du danger et de ses conséquences.' },
+                { num: '14', title: 'Conditions dégagement', question: 'Quelles sont les conditions pour réaliser le dégagement d\'urgence ?', answer: 'Victime visible, facile à atteindre, rien ne doit gêner dégagement, être sûr(e) de pouvoir le faire.' },
+                { num: '19', title: 'Déplacement victime', question: 'Dans quelle situation peut-on déplacer une victime ?', answer: 'En présence d\'un danger réel, immédiat, non contrôlable. Doit rester exceptionnel.' },
+                { num: '12', title: 'Hémorragie', question: 'Comment arrêter une hémorragie ?', answer: 'En appuyant fortement avec doigts ou paume en mettant tissu propre sur plaie.' },
+                { num: '41', title: 'Définition hémorragie', question: 'Qu\'est-ce qu\'une hémorragie ?', answer: 'Perte de sang prolongée qui ne s\'arrête pas, imbibe mouchoir en quelques secondes.' },
+                { num: '42', title: 'Risques hémorragie', question: 'Quels sont les risques pour une victime d\'hémorragie ?', answer: 'Détresse circulatoire ou arrêt cardiaque.' },
+                { num: '17', title: 'Arrêt cardiaque', question: 'Quel comportement adopter face à une victime en arrêt cardiaque ?', answer: 'ALERTER immédiatement, MASSER (RCP), DEFIBRILLER (DAE si possible).' },
+                { num: '43', title: 'Signes arrêt cardiaque', question: 'Quels sont les signes d\'un arrêt cardiaque ?', answer: 'Victime ne répond pas, ne réagit pas, ne respire pas ou respiration anormale.' },
+                { num: '47', title: 'Définition arrêt cardiaque', question: 'Qu\'est-ce qu\'un arrêt cardiaque ?', answer: 'Le cœur ne fonctionne plus ou fonctionne d\'une façon anarchique.' },
+                { num: '24', title: 'RCP immédiate', question: 'Pourquoi faut-il pratiquer immédiatement une RCP sur arrêt cardiaque ?', answer: 'Car les lésions du cerveau surviennent dès les premières minutes.' },
+                { num: '48', title: 'Risque arrêt cardiaque', question: 'Quel est le risque principal d\'arrêt cardiaque sans intervention ?', answer: 'La mort de la victime qui survient en quelques minutes.' },
+                { num: '44', title: 'Définition DAE', question: 'Qu\'est-ce qu\'un défibrillateur automatisé externe (DAE) ?', answer: 'Appareil qui peut rétablir une activité cardiaque normale à une victime.' },
+                { num: '36', title: 'DAE sans arrêt', question: 'DAE sur victime sans arrêt cardiaque présente-t-il un risque ?', answer: 'Non, car défibrillateur se déclenche uniquement quand arrêt cardiaque.' },
+                { num: '02', title: 'SAIP alerte', question: 'Quels comportements adopter en cas de diffusion signal SAIP ?', answer: 'Se mettre en sécurité, s\'informer via médias/sites autorités, respecter consignes.' },
+                { num: '03', title: 'SAIP composition', question: 'Comment est composé le signal d\'alerte du SAIP diffusé par sirènes ?', answer: 'SNA (variation sur 3 cycles) et signal fin d\'alerte (continu).' },
+                { num: '22', title: 'SAIP diffusion', question: 'Comment est diffusée l\'alerte émise par le SAIP ?', answer: 'Sirènes, médias (Radio France, France Télévision), application SAIP.' },
+                { num: '51', title: 'SAIP objectif', question: 'Quel est l\'objectif du Signal d\'Alerte et Information Populations ?', answer: 'Avertir population d\'un danger imminent ou événement grave en cours.' },
+                { num: '08', title: 'Équipement sécurité', question: 'Quel équipement doit être porté avant de quitter le véhicule en panne ?', answer: 'Gilet de haute visibilité (gilet jaune).' },
+                { num: '20', title: 'Équipement obligatoire', question: 'En cas de panne, quel équipement doit être porté avant de quitter ?', answer: 'Gilet de haute visibilité avant de sortir du véhicule.' },
+                { num: '70', title: 'Accessoire sécurité', question: 'En cas de panne, quel autre accessoire obligatoire avec le gilet ?', answer: 'Triangle de pré-signalisation.' },
+                { num: '13', title: 'Triangle placement hors autoroute', question: 'Hors autoroute, où doit être placé le triangle de pré-signalisation ?', answer: 'À environ 30m de panne/accident, ou avant virage, ou sommet côte.' },
+                { num: '81', title: 'Triangle placement général', question: 'En général, où doit être placé le triangle de pré-signalisation ?', answer: 'À environ 30m, ou avant virage ou sommet côte.' },
+                { num: '54', title: 'Triangle autoroute', question: 'Utilise-t-on le triangle de pré-signalisation sur autoroute ?', answer: 'Non.' }
+            ]
+        };
+
+        function switchModule(module) {
+            document.querySelectorAll('.module').forEach(el => el.classList.remove('active'));
+            document.getElementById(module).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadQuestions(module);
+        }
+
+        function switchTab(module, tab) {
+            const tabContent = document.getElementById(`${module}-${tab}`);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+        }
+
+        function loadQuestions(module) {
+            const grid = document.getElementById(`${module}-grid`);
+            const count = document.getElementById(`${module}-count`);
+            const moduleQuestions = questions[module] || [];
+            
+            grid.innerHTML = moduleQuestions.map(q => `
+                <div class="question-card">
+                    <span class="question-num">Q${q.num}</span>
+                    <h4>${q.title}</h4>
+                    <div class="question-text">${q.question}</div>
+                    <div class="answer-section">
+                        <span class="answer-label">✓ Réponse:</span>
+                        <div class="answer-text">${q.answer}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            count.textContent = moduleQuestions.length;
+        }
+
+        function filterQuestions(input, module) {
+            const searchText = input.value.toLowerCase();
+            const grid = document.getElementById(`${module}-grid`);
+            const cards = grid.querySelectorAll('.question-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchText)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById(`${module}-count`).textContent = visibleCount;
+        }
+
+        // Charger les questions au démarrage
+        window.addEventListener('load', () => {
+            loadQuestions('interieur');
+        });
+    </script>
+</body>
+</html>

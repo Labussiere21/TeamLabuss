@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Permis Remorque | Auto-École Labussière F.</title>
-  <meta name="description" content="Formations permis remorque BE, B96, pour tracter caravane ou remorque. Tarifs et inscriptions." />
+  <title>Brevet de Sécurité Routière (BSR/AM) | Auto-École Labussière F.</title>
+  <meta name="description" content="Formation Brevet de Sécurité Routière (BSR/AM) pour cyclomoteur 50cc. À partir de 14 ans." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -97,16 +97,6 @@
       color: var(--gray-dark);
       margin-bottom: 1rem;
       letter-spacing: 2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .page-header h1 .icon-remorque {
-      height: 2.5rem;
-      width: auto;
-      display: inline-block;
-      mix-blend-mode: lighten;
     }
 
     .page-header p {
@@ -278,8 +268,7 @@
 
     @media (max-width: 700px) {
       main { padding: 2rem 1rem; margin-top: 70px; }
-      .page-header h1 { font-size: 2rem; gap: 0.5rem; }
-      .page-header h1 .icon-remorque { height: 2rem; }
+      .page-header h1 { font-size: 2rem; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .content-section { padding: 1.5rem; }
@@ -295,8 +284,8 @@
       <li><a href="index.html">Accueil</a></li>
       <li><a href="voiture.html">Voiture</a></li>
       <li><a href="moto.html">Moto & 2-Roues</a></li>
-      <li><a href="remorque.html" class="active">Remorque</a></li>
-      <li><a href="bsr.html">AM/BSR</a></li>
+      <li><a href="remorque.html">Remorque</a></li>
+      <li><a href="bsr.html" class="active">AM/BSR</a></li>
       <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -306,104 +295,60 @@
 
   <main>
     <div class="page-header">
-      <h1><img src="remorque-maison.png" alt="" class="icon-remorque"> PERMIS REMORQUE</h1>
-      <p>Formations pour tracter une remorque ou une caravane : BE, B96. Apprenez à bien maîtriser votre attelage.</p>
+      <h1>🛵 BREVET DE SÉCURITÉ ROUTIÈRE (BSR/AM)</h1>
+      <p>Formation obligatoire pour conduire un cyclomoteur (50cc) ou un quad 50cc. Pour les jeunes à partir de 14 ans.</p>
     </div>
 
-    <!-- INFO PTAC -->
-    <div style="background: rgba(224,0,122,0.1); border-left: 4px solid #e0007a; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto;">
-      <p style="color: #2a2a2a; line-height: 1.8; margin-bottom: 1rem;">
-        <strong>⚠️ Important - Quel permis pour votre remorque ?</strong>
-      </p>
-      <ul style="list-style: none; padding-left: 0; color: #555; line-height: 1.8;">
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis BE obligatoire</strong> si le PTAC remorque est compris entre 750 kg et 3500 kg ET la somme des PTAC de l'ensemble attelage + voiture excède 4250 kg</li>
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis B suffit</strong> si le PTAC total est inférieur à 3500 kg</li>
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis B96 imposé</strong> si le poids de la remorque est compris entre 750 kg et 3500 kg ET l'ensemble attelage est inférieur à 4250 kg</li>
-      </ul>
-      <p style="color: #555; font-size: 0.9rem; margin-top: 1rem; font-style: italic;">
-        ℹ️ Vous trouverez les indications du PTAC sur le champ <strong>F2</strong> de votre carte grise.
-      </p>
-    </div>
-
-    <!-- REMORQUE BE -->
+    <!-- BSR PRINCIPAL -->
     <div class="content-section">
-      <h2>Permis BE (Remorque Pleine)</h2>
-   
+      <h2>Brevet de Sécurité Routière (BSR/AM)</h2>
+      <p>Le Brevet de Sécurité Routière (BSR) est obligatoire pour conduire un cyclomoteur (50cc) ou un quad 50cc. C'est une formation progressive et complète qui prépare les jeunes à circuler en toute sécurité.</p>
       
-      <h3>Conditions :</h3>
+      <h3>Inclus dans la formation :</h3>
       <ul>
-        <li>Avoir le permis B depuis au minimum 1 an</li>
-        <li>Formation : 7 heures minimum en auto-école</li>
-        <li>Pratique sur plateau + circulation</li>
-        <li>Permis automatique possible</li>
-      </ul>
-
-      <h3>Contenu :</h3>
-      <ul>
-        <li>2h de théorie sur sécurité attelage</li>
+        <li>2h de théorie</li>
         <li>2h de plateau (maniabilité)</li>
-        <li>3h de circulation avec remorque</li>
+        <li>3h de circulation</li>
+        <li>1h d'entretien avec les parents</li>
+        <li>Casque et gants obligatoires</li>
       </ul>
 
       <div class="tarifs-grid">
         <div class="tarif-card">
-          <h4>Formation BE Complète</h4>
-          <div class="prix">450 €</div>
-          <p class="description">7h formation complète</p>
-          <a href="TARIF_BE.pdf" target="_blank" class="btn">Voir détail</a>
+          <h4>Formation BSR/AM Complète</h4>
+          <div class="prix">300 €</div>
+          <p class="description">8h totales (théo + pratique)</p>
+          <a href="#" class="btn">Détail</a>
         </div>
       </div>
     </div>
 
-    <!-- B96 -->
+    <!-- À SAVOIR -->
     <div class="content-section">
-      <h2>Permis B96 (Remorque Légère)</h2>
-     
+      <h2>À savoir</h2>
       
-      <h3>À savoir :</h3>
+      <h3>Conditions et prérequis :</h3>
       <ul>
-        <li>Remorque > 750 kg mais ensemble limité à 4250 kg</li>
-        <li>7 heures de formation en auto-école</li>
-        <li>Pas d'examen supplémentaire requis</li>
-        <li>Formation obligatoire seulement</li>
+        <li>Âge minimum : 14 ans</li>
+        <li>Formation de 8 heures minimum</li>
+        <li>Épreuve théorique + pratique (plateau + circulation)</li>
+        <li>Validité jusqu'à 18 ans (puis conversion en permis AM)</li>
       </ul>
 
-      <div class="tarifs-grid">
-        <div class="tarif-card">
-          <h4>Formation B96</h4>
-          <div class="prix">450 €</div>
-          <p class="description">7h - formation sans examen</p>
-          <a href="TARIF_B96.pdf" target="_blank" class="btn">Détail</a>
-        </div>
-      </div>
-    </div>
-
-    
-
-    <!-- PIÈCES À FOURNIR -->
-    <div class="content-section" style="background: var(--gray-bg); border-left: 4px solid var(--lime);">
-      <h2 style="border-bottom-color: var(--lime);">📋 PIÈCES À FOURNIR</h2>
-      <p style="font-style: italic; margin-bottom: 1.5rem;">Avant de commencer votre formation remorque, vous devez nous apporter les documents suivants :</p>
-      
-      <ul style="margin-bottom: 2rem;">
-        <li><strong>Photocopie recto-verso</strong> de votre pièce d'identité (CNI ou passeport)</li>
-        <li><strong>Photo d'identité</strong> au format e-Photo</li>
-        <li><strong>Attestation de recensement</strong> ou de participation à la journée d'appel (pour les moins de 25 ans)</li>
-        <li><strong>Justificatif de domicile</strong> datant de moins de 3 mois (facture d'électricité, gaz, eau, téléphone, etc.)</li>
-        <li><strong>Attestation d'hébergement</strong> (si vous logez chez quelqu'un) + photocopie recto-verso de la pièce d'identité de l'hébergeant</li>
-        <li><strong>3 timbres</strong> au tarif en vigueur</li>
-        <li><strong>Photocopie de vos permis</strong> déjà obtenus (AM, A1, etc. si applicable)</li>
+      <h3>Documents à apporter :</h3>
+      <ul>
+        <li>Photocopie recto-verso de votre pièce d'identité</li>
+        <li>Photo d'identité au format e-Photo</li>
+        <li>Attestation de recensement ou de participation à la journée d'appel (si applicable)</li>
+        <li>Justificatif de domicile datant de moins de 3 mois</li>
+        <li>3 timbres au tarif en vigueur</li>
       </ul>
-
-      <p style="background: rgba(224,0,122,0.1); padding: 1rem; border-radius: 6px; border-left: 3px solid var(--magenta);">
-        ℹ️ <strong>Important :</strong> N'oubliez pas d'apporter ces documents à votre première visite ! Nous vérifierons tout cela ensemble lors de la constitution de votre dossier.
-      </p>
     </div>
 
     <!-- CTA CONTACT -->
     <div class="content-section" style="background: linear-gradient(135deg, rgba(224,0,122,0.1) 0%, rgba(127,255,0,0.05) 100%); border-left: 4px solid var(--lime);">
-      <h2 style="border-bottom-color: var(--lime);">Prêt à tracter en toute sécurité ?</h2>
-      <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">Demandez votre formation remorque dès maintenant avec nos moniteurs expérimentés.</p>
+      <h2 style="border-bottom-color: var(--lime);">Prêt à débuter sur deux roues ?</h2>
+      <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">Commencez votre apprentissage dès maintenant avec nos instructeurs expérimentés et obtenez votre BSR en toute sécurité.</p>
       <a href="index.html#contact" style="display: inline-block; background: var(--magenta); color: var(--white); padding: 1rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 1rem;">Nous contacter</a>
     </div>
   </main>
@@ -413,12 +358,14 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="logo-text">LABUSSIÈRE F.</div>
-        <p>Ecole de Conduite Labussière F.<br>6, Avenue du 8 Septembre<br>21200 BEAUNE<br><br>03 80 24 02 99<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107165647f75737f7c7550777d71797c3e737f7d">[email&#160;protected]</a></p>
+        <p>Ecole de Conduite Labussière F.<br>6, Avenue du 8 Septembre<br>21200 BEAUNE<br><br>03 80 24 02 99<br><a href="/cdn-cgi/l/email-protection#9efdf1f0eafffdeadef2fffcebededf7fbecfbb3fcfbffebf0fbb0f8ec"><span class="__cf_email__" data-cfemail="bdded2d3c9dcdec9fdd1dcdfc8ceced4d8cfd890dfd8dcc8d3d893dbcf">[email&#160;protected]</span></a></p>
       </div>
       <div>
         <h4>Formations</h4>
         <ul>
           <li><a href="voiture.html">Permis Voiture (B)</a></li>
+          <li><a href="permis-b-verifications.html">Vérifications Permis B</a></li>
+          <li><a href="manoeuvres-examen.html">Manœuvres de l'Examen</a></li>
           <li><a href="moto.html">Permis Moto</a></li>
           <li><a href="remorque.html">Remorque (BE)</a></li>
           <li><a href="bsr.html">AM/BSR</a></li>
@@ -436,6 +383,4 @@
     <div class="footer-bottom">
       © 2026 Ecole de Conduite Labussière F. — Beaune & Bligny-sur-Ouche
     </div>
-  </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-
+  </foot
