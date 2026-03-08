@@ -13,7 +13,7 @@ Allow: /*.html
 Allow: /*.pdf
 
 # Sitemap
-Sitemap: https://www.votre-domaine.fr/sitemap.xml
+Sitemap: https://labussiere21.github.io/TeamLabuss/sitemap.xml
 
 # Crawler delay (optionnel - délai en secondes entre chaque requête)
 Crawl-delay: 1
