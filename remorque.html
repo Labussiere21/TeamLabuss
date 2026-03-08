@@ -62,9 +62,14 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
-    .nav-links a:hover, .nav-links a.active {
+    .nav-links a:hover {
       color: var(--magenta);
       background: rgba(224,0,122,0.08);
+    }
+    .nav-links a.active {
+      color: var(--gray-dark);
+      background: var(--lime);
+      font-weight: 600;
     }
 
     .nav-cta {
@@ -97,18 +102,6 @@
       color: var(--gray-dark);
       margin-bottom: 1rem;
       letter-spacing: 2px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .page-header h1 .icon-remorque {
-      height: 2.5rem;
-      width: auto;
-      display: inline-block;
-      background: var(--magenta);
-      padding: 0.3rem;
-      border-radius: 6px;
     }
 
     .page-header p {
@@ -280,8 +273,7 @@
 
     @media (max-width: 700px) {
       main { padding: 2rem 1rem; margin-top: 70px; }
-      .page-header h1 { font-size: 2rem; gap: 0.5rem; }
-      .page-header h1 .icon-remorque { height: 2rem; }
+      .page-header h1 { font-size: 2rem; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .content-section { padding: 1.5rem; }
@@ -329,11 +321,12 @@
 
     <!-- REMORQUE BE -->
     <div class="content-section">
-      <h2>Permis BE (Remorque Pleine)</h2>
+      <h2>Permis BE</h2>
    
       
       <h3>Conditions :</h3>
       <ul>
+        <li>Avoir le permis B depuis au minimum 1 an</li>
         <li>Formation : 7 heures minimum en auto-école</li>
         <li>Pratique sur plateau + circulation</li>
         <li>Permis automatique possible</li>
@@ -348,9 +341,15 @@
 
       <div class="tarifs-grid">
         <div class="tarif-card">
-          <h4>Formation BE Complète</h4>
-          <div class="prix">450 €</div>
-          <p class="description">7h formation complète</p>
+          <h4>Formation BE avec Code</h4>
+          <div class="prix">900 €</div>
+          <p class="description">7h formation + code</p>
+          <a href="TARIF_BE.pdf" target="_blank" class="btn">Voir détail</a>
+        </div>
+        <div class="tarif-card">
+          <h4>Formation BE sans Code</h4>
+          <div class="prix">750 €</div>
+          <p class="description">7h formation</p>
           <a href="TARIF_BE.pdf" target="_blank" class="btn">Voir détail</a>
         </div>
       </div>

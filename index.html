@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Auto-École Labussière F. | Beaune – Bligny-sur-Ouche</title>
-  <meta name="description" content="Auto-École Labussière F. à Beaune et Bligny-sur-Ouche. Permis voiture, moto, BSR, remorque. Appelez le 03 80 24 02 99." />
+  <meta name="description" content="Auto-École Labussière F. à Beaune et Bligny-sur-Ouche. Permis voiture, moto, AM/BSR, remorque. Appelez le 03 80 24 02 99." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -73,6 +73,11 @@
     .nav-links a:hover {
       color: var(--magenta);
       background: rgba(224,0,122,0.08);
+    }
+    .nav-links a.active {
+      color: var(--gray-dark);
+      background: var(--lime);
+      font-weight: 600;
     }
 
     .nav-cta {
@@ -287,26 +292,27 @@
 
     .formations-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: 1rem;
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
     .formation-card {
       background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 2px solid var(--lime);
       border-radius: 8px;
       padding: 1.5rem 1rem;
       text-align: center;
       color: var(--white);
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
       cursor: pointer;
     }
     .formation-card:hover {
       background: rgba(255,255,255,0.22);
       transform: translateY(-3px);
+      border-color: var(--lime);
     }
     .formation-card .icon {
       font-size: 2.2rem;
@@ -584,9 +590,11 @@
   </style>
 </head>
 <body>
+  
 
   <!-- NAV -->
   <nav>
+    
     <a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Accueil</a></li>
@@ -605,10 +613,10 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <span class="hero-tag">Auto – Moto – BSR – Remorque</span>
+      <span class="hero-tag">Auto – Moto – AM/BSR – Remorque</span>
       <h1>ÉCOLE DE CONDUITE<br><em>LABUSSIÈRE F.</em></h1>
       <p class="hero-sub">
-        Votre auto-école de confiance à <strong>Beaune</strong> et <strong>Bligny-sur-Ouche</strong> depuis des années. Formations complètes, équipe passionnée, taux de réussite élevé.
+        Votre auto-école de confiance à <strong>Beaune</strong> et <strong>Bligny-sur-Ouche</strong> depuis 1969.
       </p>
       <div class="hero-actions">
         <a href="#formations" class="btn-primary">Nos formations</a>
@@ -637,8 +645,8 @@
       </a>
       <a class="formation-card" href="bsr.html">
         <span class="icon">🛵</span>
-        <strong>Brevet Sécurité Routière</strong>
-        <p>BSR/AM, cyclomoteur</p>
+        <strong>Permis AM</strong>
+        <p>AM/BSR, cyclomoteurs et quadricycles à moteur (voiturette)</p>
       </a>
       <a class="formation-card" href="remorque.html">
         <img src="remorque-maison.png" alt="Remorque" class="card-icon">
@@ -649,11 +657,6 @@
         <span class="icon">✅</span>
         <strong>Vérifications Permis B</strong>
         <p>Révisez les questions du code de la route</p>
-      </a>
-      <a class="formation-card" href="manoeuvres-examen.html">
-        <span class="icon">🔄</span>
-        <strong>Manœuvres de l'Examen</strong>
-        <p>Les 9 manœuvres détaillées</p>
       </a>
     </div>
   </section>
@@ -705,7 +708,6 @@
           <p>
             2, Route de Beaune<br>
             21360 BLIGNY/OUCHE<br><br>
-            <a href="tel:0380240299">03 80 24 02 99</a>
           </p>
           <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
             <strong style="color: var(--magenta); font-size: 1rem;">Ouverture du bureau</strong><br>
@@ -872,4 +874,12 @@
         Facebook
       </a>
     </div>
-  </footer>
+  </footer>  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
