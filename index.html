@@ -563,6 +563,53 @@
       50% { transform: scale(1.4); opacity: 0.7; }
     }
 
+    /* ── FORMES GÉOMÉTRIQUES ANIMÉES ── */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shape-1 {
+      width: 350px;
+      height: 350px;
+      background: var(--lime);
+      top: 15%;
+      left: -8%;
+      animation: float 22s ease-in-out infinite;
+    }
+    .shape-2 {
+      width: 280px;
+      height: 280px;
+      background: var(--magenta);
+      bottom: 25%;
+      right: -5%;
+      animation: float 18s ease-in-out infinite reverse;
+    }
+    .shape-3 {
+      width: 200px;
+      height: 200px;
+      background: var(--lime);
+      top: 45%;
+      right: 15%;
+      animation: float 20s ease-in-out infinite;
+    }
+    .shape-4 {
+      width: 250px;
+      height: 250px;
+      background: var(--magenta);
+      top: 10%;
+      right: 30%;
+      animation: float 16s ease-in-out infinite reverse;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(30px, -30px) rotate(5deg); }
+      50% { transform: translate(-25px, 25px) rotate(-5deg); }
+      75% { transform: translate(25px, 35px) rotate(3deg); }
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 700px) {
       .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--gray-bg); padding: 1rem 2rem; border-bottom: 2px solid var(--magenta); }
@@ -616,7 +663,12 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
     <div class="hero-content">
       <span class="hero-tag">Auto – Moto – AM/BSR – Remorque</span>
       <h1>ÉCOLE DE CONDUITE<br><em>LABUSSIÈRE F.</em></h1>
@@ -750,7 +802,7 @@
 
         <p style="margin-bottom:1rem;">
           <strong style="color:var(--gray-dark);font-size:1rem;">Email :</strong><br>
-          <a href="mailto:flabussiere@gmail.com">flabussiere@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#8aece6ebe8fff9f9e3eff8efcaede7ebe3e6a4e9e5e7"><span class="__cf_email__" data-cfemail="60060c01021513130905120520070d01090c4e030f0d">[email&#160;protected]</span></a>
         </p>
 
         <p>
@@ -871,10 +923,4 @@
     </div>
   </footer>  </footer>
 
-  <script>
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('navLinks').classList.toggle('open');
-    });
-  </script>
-</body>
-</html>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5
