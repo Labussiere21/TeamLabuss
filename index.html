@@ -306,14 +306,13 @@
       text-align: center;
       color: var(--white);
       text-decoration: none;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
       cursor: pointer;
-      transform-style: preserve-3d;
     }
     .formation-card:hover {
       background: rgba(255,255,255,0.22);
-      transform: rotateY(8deg) translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 24px rgba(127, 255, 0, 0.3);
+      transform: translateY(-3px);
+      border-color: var(--lime);
     }
     .formation-card .icon {
       font-size: 2.2rem;
@@ -564,64 +563,6 @@
       50% { transform: scale(1.4); opacity: 0.7; }
     }
 
-    /* ── FORMES GÉOMÉTRIQUES ANIMÉES ── */
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.15;
-      z-index: 1;
-    }
-    .shape-1 {
-      width: 400px;
-      height: 400px;
-      background: var(--lime);
-      top: 10%;
-      left: -10%;
-      animation: float 20s ease-in-out infinite;
-    }
-    .shape-2 {
-      width: 300px;
-      height: 300px;
-      background: var(--magenta);
-      bottom: 20%;
-      right: -5%;
-      animation: float 15s ease-in-out infinite reverse;
-    }
-    .shape-3 {
-      width: 200px;
-      height: 200px;
-      background: var(--lime);
-      top: 50%;
-      right: 20%;
-      animation: float 18s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(30px, -30px) rotate(5deg); }
-      50% { transform: translate(-20px, 20px) rotate(-5deg); }
-      75% { transform: translate(20px, 30px) rotate(3deg); }
-    }
-
-    /* ── SCROLL FADE ANIMATION ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── FLIP CARD EFFECT ── */
-    .formation-card {
-      transform-style: preserve-3d;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .formation-card:hover {
-      transform: rotateY(10deg) translateY(-5px);
-    }
-
     /* ── MOBILE ── */
     @media (max-width: 700px) {
       .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--gray-bg); padding: 1rem 2rem; border-bottom: 2px solid var(--magenta); }
@@ -629,6 +570,24 @@
       .hamburger { display: flex; }
       .hero h1 { font-size: 3.8rem; }
       .hero-car-deco { display: none; }
+      
+      /* Cartes formation responsive 3+2 */
+      .formations-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+        padding: 0 1rem;
+      }
+      .formation-card {
+        padding: 1rem 0.5rem;
+        font-size: 0.85rem;
+      }
+      .formation-card .icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.4rem;
+      }
+      .formation-card strong {
+        font-size: 0.75rem;
+      }
       
       /* Formulaire contact responsive */
       .contact-grid { grid-template-columns: 1fr !important; }
@@ -657,11 +616,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
+    <div class="hero-bg"></div>
     <div class="hero-content">
       <span class="hero-tag">Auto – Moto – AM/BSR – Remorque</span>
       <h1>ÉCOLE DE CONDUITE<br><em>LABUSSIÈRE F.</em></h1>
@@ -918,32 +873,8 @@
   </footer>  </footer>
 
   <script>
-    // Menu hamburger
     document.getElementById('hamburger').addEventListener('click', function() {
       document.getElementById('navLinks').classList.toggle('open');
-    });
-
-    // Animation au scroll (fade in)
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Ajouter la classe fade-in aux sections
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('.avantages, .agences, .certifications, .avantage-item, .cert-item');
-      sections.forEach(section => {
-        section.classList.add('fade-in');
-        observer.observe(section);
-      });
     });
   </script>
 </body>
