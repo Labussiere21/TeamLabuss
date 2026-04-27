@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Tarifs</h1>
+<p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">
+  Modifiez les prix affichés sur le site. Cliquez sur <strong>Enregistrer</strong> en bas de page, puis <strong>Publier</strong> pour mettre le site à jour.
+</p>
+
+<form method="post">
+  {% for page in pages %}
+  <div class="card">
+    <h2>{{ page.label }}</h2>
+    {% if page.cards %}
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="font-size:0.8rem; color:#888; text-transform:uppercase; border-bottom:2px solid #eee;">
+            <th style="text-align:left; padding:0.4rem 0.5rem; width:35%">Formation</th>
+            <th style="text-align:left; padding:0.4rem 0.5rem; width:20%">Prix</th>
+            <th style="text-align:left; padding:0.4rem 0.5rem;">Description courte</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for card in page.cards %}
+          {% set i = loop.index0 %}
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:0.75rem 0.5rem; font-weight:600; font-size:0.9rem;">{{ card.titre }}</td>
+            <td style="padding:0.75rem 0.5rem;">
+              <input type="text" name="{{ page.prefix }}{{ i }}_prix"
+                value="{{ card.prix }}"
+                style="margin-bottom:0; width:120px; font-weight:600; color:#e0007a;">
+            </td>
+            <td style="padding:0.75rem 0.5rem;">
+              <input type="text" name="{{ page.prefix }}{{ i }}_desc"
+                value="{{ card.description }}"
+                style="margin-bottom:0;">
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color:#999; font-style:italic; font-size:0.88rem;">Aucun tarif trouvé dans ce fichier.</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  <button type="submit" class="btn-primary" style="font-size:1rem; padding:0.6rem 2rem;">
+    Enregistrer tous les tarifs
+  </button>
+</form>
+{% endblock %}

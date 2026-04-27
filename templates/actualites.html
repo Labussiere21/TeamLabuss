@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Actualités</h1>
+
+<div class="card">
+  <h2>Ajouter une actualité</h2>
+  <form method="post">
+    <label>Date (ex : Avril 2026)</label>
+    <input type="text" name="date" placeholder="Avril 2026" required>
+    <label>Titre</label>
+    <input type="text" name="titre" placeholder="Achat d'une nouvelle voiturette" required>
+    <label>Texte</label>
+    <textarea name="texte" placeholder="Description de l'actualité..." required></textarea>
+    <button type="submit" class="btn-primary">Ajouter</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Actualités publiées ({{ actualites | length }})</h2>
+  {% if actualites %}
+    <table style="width:100%; border-collapse:collapse;">
+      <colgroup>
+        <col style="width:100px">
+        <col>
+        <col style="width:80px">
+      </colgroup>
+      {% for actu in actualites %}
+      <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 0.8rem 0.5rem; color:#888; font-size:0.82rem; vertical-align:top; white-space:nowrap;">{{ actu.date }}</td>
+        <td style="padding: 0.8rem 1rem; vertical-align:top;">
+          <div style="font-weight:600; margin-bottom:0.25rem;">{{ actu.titre }}</div>
+          <div style="font-size:0.87rem; color:#555;">{{ actu.texte }}</div>
+        </td>
+        <td style="padding: 0.8rem 0.5rem; vertical-align:top; text-align:right;">
+          <form method="post" action="/actualites/supprimer/{{ actu.id }}">
+            <button type="submit" class="btn-danger"
+              onclick="return confirm('Supprimer cette actualité ?')">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p style="color:#999; font-style:italic; font-size:0.9rem;">Aucune actualité pour le moment.</p>
+  {% endif %}
+</div>
+{% endblock %}
