@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manœuvres de l'Examen Permis B</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #34495e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #2d5a8c 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .info-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent);
+        }
+
+        .info-box h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .info-box p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .manoeuvres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .manoeuvres-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .manoeuvre-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .manoeuvre-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .manoeuvre-num {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .manoeuvre-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .manoeuvre-type {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .schema-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--light) 0%, #dfe6e9 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            border: 2px dashed var(--accent);
+            color: var(--text);
+            font-size: 1em;
+            text-align: center;
+            padding: 20px;
+            font-weight: 500;
+        }
+
+        .conseils {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 3px solid var(--success);
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .conseils strong {
+            color: var(--success);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .conseils ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        .conseils li {
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .erreurs {
+            background: #fadbd8;
+            padding: 15px;
+            border-left: 3px solid var(--secondary);
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .erreurs strong {
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .erreurs ul {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        .erreurs li {
+            margin-bottom: 6px;
+            color: var(--text);
+            font-size: 0.95em;
+        }
+
+        .evaluation {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .evaluation h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .eval-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .eval-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .eval-item p {
+            color: var(--text);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .note-important {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d5e8f0 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .note-important strong {
+            color: var(--primary);
+        }
+
+        .note-important p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: var(--text);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            color: var(--text);
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 Les Manœuvres de l'Examen</h1>
+            <p class="subtitle">Maîtrisez les 9 manœuvres essentielles du permis B</p>
+        </header>
+
+        <!-- INFORMATIONS GÉNÉRALES -->
+        <div class="info-box">
+            <h2>📋 Informations Essentielles</h2>
+            <p><strong>Nombre de manœuvres à effectuer :</strong> 2 manœuvres différentes dont une obligatoirement en marche arrière.</p>
+            <p><strong>Sélection des manœuvres :</strong> Une première manœuvre est imposée par l'inspecteur. La deuxième est au choix du candidat lors des 5 minutes d'autonomie.</p>
+            <p><strong>Important :</strong> Les manœuvres ne sont pas éliminatoires. L'inspecteur évalue surtout la <strong>technique de mise en œuvre</strong> et non pas la réussite.</p>
+            <div class="highlight">
+                <strong>⚠️ Critères d'évaluation :</strong>
+                <p>L'inspecteur évalue l'observation périphérique (vérification de l'environnement), la maîtrise des commandes à allure lente dans un espace réduit, et la capacité à libérer l'espace nécessaire au trafic et aux autres usagers.</p>
+            </div>
+        </div>
+
+        <!-- STATISTIQUES -->
+        <div class="stats-box">
+            <div class="stat">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Manœuvres possibles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">À effectuer à l'examen</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1</div>
+                <div class="stat-label">En marche arrière obligatoire</div>
+            </div>
+        </div>
+
+        <!-- GRILLE DES 9 MANŒUVRES -->
+        <div class="manoeuvres-grid">
+
+            <!-- Manœuvre 1 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">1</div>
+                <h3>Marche Arrière en Ligne Droite</h3>
+                <span class="manoeuvre-type">Marche arrière</span>
+                <p class="description">Le candidat recule le véhicule en ligne droite sur une distance d'environ 50 mètres, en maintenant une trajectoire stable et contrôlée.</p>
+                <div class="schema-placeholder">📐 Schéma: Trajectoire en ligne droite vers l'arrière</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Vérifier les angles morts avant de commencer</li>
+                        <li>Utiliser les rétroviseurs régulièrement</li>
+                        <li>Allure lente et régulière</li>
+                        <li>Corrections de trajectoire progressives</li>
+                        <li>Ne pas se pencher excessivement</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Vitesse excessive en marche arrière</li>
+                        <li>Absence de prise d'information (rétroviseurs)</li>
+                        <li>Trajectoire en zigzag</li>
+                        <li>Sortie de la zone de manœuvre</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 2 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">2</div>
+                <h3>Marche Arrière en Courbe</h3>
+                <span class="manoeuvre-type">Marche arrière</span>
+                <p class="description">Le candidat recule le véhicule en effectuant une courbe (à gauche ou à droite), en maintenant une trajectoire courbe régulière.</p>
+                <div class="schema-placeholder">📐 Schéma: Trajectoire en courbe vers l'arrière</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Anticiper la courbe avec le volant</li>
+                        <li>Vitesse très lente et progressive</li>
+                        <li>Vérifications fréquentes en rétroviseur</li>
+                        <li>Adapter le braquage à la courbe</li>
+                        <li>Regarder l'angle de sortie attendu</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Braquage trop brutal</li>
+                        <li>Courbe trop prononcée ou insuffisante</li>
+                        <li>Absence d'adaptation progressive</li>
+                        <li>Décrochage ou instabilité</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 3 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">3</div>
+                <h3>Rangement en Créneau</h3>
+                <span class="manoeuvre-type">Arrière</span>
+                <p class="description">Le candidat se gare entre deux véhicules en marche arrière dans une place de stationnement limitée (environ 120-130% de la longueur du véhicule).</p>
+                <div class="schema-placeholder">📐 Schéma: Positionnement en créneau arrière</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Bien positionner le véhicule parallèlement à la place</li>
+                        <li>Braquage maximal dès le départ</li>
+                        <li>Placer le véhicule à 45 degrés</li>
+                        <li>Recul progressif en rectifiant</li>
+                        <li>Centrer le véhicule dans la place</li>
+                        <li>Vérifier la proximité avant/arrière</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Escalade du trottoir</li>
+                        <li>Heurt des véhicules avant ou arrière</li>
+                        <li>Sortie de la zone avant fin manœuvre</li>
+                        <li>Trop d'allers-retours</li>
+                        <li>Mauvais positionnement initial</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 4 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">4</div>
+                <h3>Rangement en Épi en Avant</h3>
+                <span class="manoeuvre-type">Avant</span>
+                <p class="description">Le candidat se gare en avant dans une place de stationnement en épi (perpendiculaire à la chaussée), en faisant pivoter le véhicule.</p>
+                <div class="schema-placeholder">📐 Schéma: Stationnement en épi avant</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Positionner le véhicule en biais</li>
+                        <li>Braquage progressif vers la place</li>
+                        <li>Entrée en avant dans la place</li>
+                        <li>Centrer le véhicule</li>
+                        <li>Vérifications régulières</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Entrée trop rapide</li>
+                        <li>Escalade du trottoir</li>
+                        <li>Heurt des véhicules adjacents</li>
+                        <li>Mauvais angle d'approche</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 5 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">5</div>
+                <h3>Rangement en Épi en Arrière</h3>
+                <span class="manoeuvre-type">Marche arrière</span>
+                <p class="description">Le candidat se gare en arrière dans une place de stationnement en épi (perpendiculaire à la chaussée), en recul.</p>
+                <div class="schema-placeholder">📐 Schéma: Stationnement en épi arrière</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Positionner le véhicule en biais de l'autre côté</li>
+                        <li>Braquage adapté pour pivoter arrière</li>
+                        <li>Recul progressif dans la place</li>
+                        <li>Rectifier la trajectoire au besoin</li>
+                        <li>Centrer dans la place</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Entrée mal positionnée</li>
+                        <li>Escalade du trottoir</li>
+                        <li>Collision avec véhicules</li>
+                        <li>Recul incontrôlé</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 6 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">6</div>
+                <h3>Rangement en Bataille en Marche Avant</h3>
+                <span class="manoeuvre-type">Avant</span>
+                <p class="description">Le candidat se gare dans une place de stationnement en bataille (parallèle à la chaussée), en marche avant.</p>
+                <div class="schema-placeholder">📐 Schéma: Stationnement bataille avant</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Approche en biais de la place</li>
+                        <li>Braquage progressif pour centrer</li>
+                        <li>Entrée avant contrôlée</li>
+                        <li>Parallélisme avec les places voisines</li>
+                        <li>Distance égale avant/arrière</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Approche mal positionnée</li>
+                        <li>Escalade du trottoir</li>
+                        <li>Manque de parallélisme</li>
+                        <li>Vitesse excessive</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 7 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">7</div>
+                <h3>Rangement en Bataille en Marche Arrière</h3>
+                <span class="manoeuvre-type">Marche arrière</span>
+                <p class="description">Le candidat se gare dans une place de stationnement en bataille (parallèle à la chaussée), en marche arrière.</p>
+                <div class="schema-placeholder">📐 Schéma: Stationnement bataille arrière</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Positionner le véhicule en biais initial</li>
+                        <li>Braquage adapté pour pivoter</li>
+                        <li>Recul progressif dans la place</li>
+                        <li>Redressage du véhicule au besoin</li>
+                        <li>Parallélisme final vérifié</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Escalade du trottoir</li>
+                        <li>Heurt des places voisines</li>
+                        <li>Manque de parallélisme final</li>
+                        <li>Recul trop rapide ou inégal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 8 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">8</div>
+                <h3>Demi-tour</h3>
+                <span class="manoeuvre-type">Avant/Arrière</span>
+                <p class="description">Le candidat effectue un demi-tour (180°) pour inverser la direction du véhicule (faire demi-tour), en utilisant les commandes maîtrisées.</p>
+                <div class="schema-placeholder">📐 Schéma: Trajectoire demi-tour 180°</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Braquage maximal pour courbe prononcée</li>
+                        <li>Avance puis recul si nécessaire</li>
+                        <li>Allure très lente pendant la manœuvre</li>
+                        <li>Vérifications régulières (avant/arrière)</li>
+                        <li>Finition progressive de la courbe</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Vitesse excessive en courbe</li>
+                        <li>Absence de vérifications</li>
+                        <li>Escalade du trottoir</li>
+                        <li>Sortie de zone</li>
+                        <li>Rayon de courbe insuffisant</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Manœuvre 9 -->
+            <div class="manoeuvre-card">
+                <div class="manoeuvre-num">9</div>
+                <h3>Freinage pour Arrêt Précis</h3>
+                <span class="manoeuvre-type">Arrêt</span>
+                <p class="description">Le candidat doit ralentir progressivement et immobiliser le véhicule avec précision, dans une zone définie (zone de tolérance = longueur du véhicule).</p>
+                <div class="schema-placeholder">📐 Schéma: Zone de tolérance pour arrêt précis</div>
+                <div class="conseils">
+                    <strong>✓ Conseils :</strong>
+                    <ul>
+                        <li>Ralentissement progressif de loin</li>
+                        <li>Dosage du freinage adapté</li>
+                        <li>Arrêt sans à-coup</li>
+                        <li>Position dans zone de tolérance</li>
+                        <li>Vérifications arrière avant arrêt</li>
+                        <li>Absence d'escalade du trottoir</li>
+                    </ul>
+                </div>
+                <div class="erreurs">
+                    <strong>✗ Erreurs à éviter :</strong>
+                    <ul>
+                        <li>Ralentissement prématuré</li>
+                        <li>Dosage inadapté du freinage</li>
+                        <li>Arrêt brutal ou saccadé</li>
+                        <li>Arrêt hors zone de tolérance</li>
+                        <li>Insuffisance de prise d'information</li>
+                        <li>Vitesse excessive à l'approche</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CRITÈRES D'ÉVALUATION -->
+        <div class="evaluation">
+            <h2>📊 Critères d'Évaluation des Manœuvres</h2>
+            <p style="margin-bottom: 20px;"><strong>Pour les manœuvres 1 à 8 :</strong> L'inspecteur évalue la <strong>technique de mise en œuvre</strong> et non la réussite. Il regarde surtout :</p>
+            <div class="evaluation-grid">
+                <div class="eval-item">
+                    <strong>✓ Observation Périphérique</strong>
+                    <p>Vérification régulière de l'environnement (rétroviseurs, angles morts) avant et pendant la manœuvre.</p>
+                </div>
+                <div class="eval-item">
+                    <strong>✓ Maîtrise des Commandes</strong>
+                    <p>Contrôle fluide du volant, de l'accélérateur et du frein à allure lente, dans un espace réduit.</p>
+                </div>
+                <div class="eval-item">
+                    <strong>✓ Espace pour le Trafic</strong>
+                    <p>Capacité à libérer l'espace nécessaire au trafic et aux autres usagers, sans les gêner.</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;"><strong>Pour la manœuvre 9 (Freinage) :</strong> L'inspecteur évalue si le candidat sait ralentir progressivement et immobiliser son véhicule avec précision en toute sécurité.</p>
+        </div>
+
+        <!-- NOTE IMPORTANTE -->
+        <div class="note-important">
+            <strong>⚠️ Point Important :</strong>
+            <p>Les manœuvres ne sont <strong>pas éliminatoires</strong>. Cela signifie que même si vous n'exécutez pas parfaitement une manœuvre, cela ne vous fera pas échouer l'examen. L'important est de démontrer une bonne technique et une bonne maîtrise des commandes.</p>
+            <p>L'inspecteur privilégie l'<strong>approche progressive</strong> et la <strong>sécurité</strong> plutôt que la perfection technique.</p>
+        </div>
+
+        <!-- CONSEILS PRATIQUES -->
+        <div class="info-box">
+            <h2>💡 Conseils Pratiques Généraux</h2>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>Préparation :</strong> Entraînez-vous régulièrement à l'auto-école avec les mêmes types de manœuvres.</li>
+                <li><strong>Concentration :</strong> Restez calme et concentré pendant la manœuvre, sans stress.</li>
+                <li><strong>Allure :</strong> Toutes les manœuvres demandent une allure très lente et progressive.</li>
+                <li><strong>Vérifications :</strong> Vérifiez régulièrement l'environnement (rétroviseurs, angles morts).</li>
+                <li><strong>Communication :</strong> N'hésitez pas à verbaliser vos actions ("Je vérifie l'angle mort", etc.).</li>
+                <li><strong>Correction :</strong> Corrigez progressivement votre trajectoire plutôt que de la briser.</li>
+                <li><strong>Confort :</strong> Assurez-vous que l'installation est bonne avant de commencer.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>📚 Guide Complet des Manœuvres de l'Examen Permis B | © 2024</p>
+        <p>Ajoutez des schémas détaillés et des photos pour personnaliser ce guide</p>
+    </footer>
+</body>
+</html>
