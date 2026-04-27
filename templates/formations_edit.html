@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+  <h1 style="margin:0;">{{ label }}</h1>
+  <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+    {% for fn, lb in pages %}
+    <a href="/formations/{{ fn }}"
+       style="padding:0.3rem 0.8rem; border-radius:20px; font-size:0.82rem; text-decoration:none;
+              {% if fn == page %}background:#e0007a; color:white;{% else %}background:#eee; color:#444;{% endif %}">
+      {{ lb }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<p style="color:#666; font-size:0.88rem; margin-bottom:1.5rem;">
+  Modifiez les textes ci-dessous. Les tarifs, listes et pièces à fournir ne sont pas affichés ici
+  (gérez-les via les onglets <strong>Tarifs</strong> et <strong>Documents</strong>).<br>
+  Vous pouvez utiliser des balises HTML basiques : <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;a href="..."&gt;</code>.
+</p>
+
+<form method="post">
+  {% for sec in sections %}
+  <div class="card" style="margin-bottom:1.2rem;">
+
+    <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+      <span style="background:#e0007a; color:white; font-size:0.72rem; font-weight:700;
+                   padding:0.2rem 0.6rem; border-radius:20px; white-space:nowrap;">
+        Section {{ sec.index + 1 }}
+      </span>
+      <span style="font-weight:600; color:#333;">{{ sec.title }}</span>
+    </div>
+
+    {% if sec.h2_html %}
+    <div style="margin-bottom:1rem;">
+      <label>Titre de la section</label>
+      <input type="text" name="s{{ sec.index }}_h2" value="{{ sec.h2_html }}"
+             style="font-weight:600;">
+    </div>
+    {% endif %}
+
+    {% if sec.paragraphs %}
+      {% for para in sec.paragraphs %}
+      <div style="margin-bottom:0.75rem;">
+        <label>Paragraphe {{ para.index + 1 }}</label>
+        <textarea name="s{{ sec.index }}_p{{ para.index }}"
+                  rows="{{ [3, (para.html | length // 80)] | max }}"
+                  style="font-size:0.88rem;">{{ para.html }}</textarea>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p style="color:#aaa; font-style:italic; font-size:0.88rem;">Aucun paragraphe dans cette section.</p>
+    {% endif %}
+
+  </div>
+  {% endfor %}
+
+  {% if sections %}
+  <button type="submit" class="btn-primary" style="font-size:1rem; padding:0.6rem 2rem;">
+    Enregistrer {{ label }}
+  </button>
+  {% else %}
+  <p style="color:#999; font-style:italic;">Aucune section trouvée dans cette page.</p>
+  {% endif %}
+</form>
+{% endblock %}

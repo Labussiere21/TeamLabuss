@@ -103,9 +103,10 @@
 <body>
   <nav>
     <span class="nav-brand">Auto-École Labussière — Admin</span>
-    <a href="/actualites" {% if active == 'actualites' %}class="active"{% endif %}>Actualités</a>
-    <a href="/tarifs"     {% if active == 'tarifs'     %}class="active"{% endif %}>Tarifs</a>
-    <a href="/documents"  {% if active == 'documents'  %}class="active"{% endif %}>Documents PDF</a>
+    <a href="/actualites"  {% if active == 'actualites'  %}class="active"{% endif %}>Actualités</a>
+    <a href="/formations"  {% if active == 'formations'  %}class="active"{% endif %}>Formations</a>
+    <a href="/tarifs"      {% if active == 'tarifs'      %}class="active"{% endif %}>Tarifs</a>
+    <a href="/documents"   {% if active == 'documents'   %}class="active"{% endif %}>Documents PDF</a>
     <div class="nav-right">
       <form action="/publier" method="post">
         <button type="submit" class="btn-publier">↑ Publier sur le site</button>

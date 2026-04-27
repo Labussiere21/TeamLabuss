@@ -23,6 +23,14 @@ TARIF_PAGES = [
     ('autre.html', 'Autres formations'),
 ]
 
+FORMATION_PAGES = [
+    ('voiture.html', 'Voiture (B)'),
+    ('moto.html', 'Moto'),
+    ('bsr.html', 'BSR / AM'),
+    ('remorque.html', 'Remorque / BE'),
+    ('autre.html', 'Autres formations'),
+]
+
 CERTIF_IMAGES = [
     ('logo_ecole_de_conduite_0_0.png', 'Label École Conduite Qualité'),
     ('mediation2.jpg',                 'Logo Médiation'),
@@ -105,6 +113,73 @@ def regenerer_actualites_html():
 
 
 # ── Tarifs ───────────────────────────────────────────────────────────────────
+
+# ── Formations (contenu) ─────────────────────────────────────────────────────
+
+def get_sections(filename):
+    filepath = os.path.join(BASE_DIR, filename)
+    if not os.path.exists(filepath):
+        return []
+    with open(filepath, 'r', encoding='utf-8') as f:
+        soup = BeautifulSoup(f.read(), 'html.parser')
+    sections = []
+    for i, sec in enumerate(soup.select('.content-section')):
+        h2 = sec.find('h2')
+        sections.append({
+            'index': i,
+            'title': h2.get_text(strip=True) if h2 else f'Section {i+1}',
+            'h2_html': h2.decode_contents() if h2 else '',
+            'paragraphs': [
+                {'index': j, 'html': p.decode_contents()}
+                for j, p in enumerate(sec.find_all('p'))
+            ],
+        })
+    return sections
+
+
+def save_sections(filename, form_data):
+    filepath = os.path.join(BASE_DIR, filename)
+    with open(filepath, 'r', encoding='utf-8') as f:
+        soup = BeautifulSoup(f.read(), 'html.parser')
+    for i, sec in enumerate(soup.select('.content-section')):
+        h2 = sec.find('h2')
+        if h2:
+            val = form_data.get(f's{i}_h2', '').strip()
+            if val:
+                h2.clear()
+                h2.append(BeautifulSoup(val, 'html.parser'))
+        for j, p in enumerate(sec.find_all('p')):
+            val = form_data.get(f's{i}_p{j}')
+            if val is not None:
+                p.clear()
+                p.append(BeautifulSoup(val, 'html.parser'))
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(str(soup))
+
+
+@app.route('/formations')
+def formations_list():
+    return render_template('formations_list.html', pages=FORMATION_PAGES, active='formations')
+
+
+@app.route('/formations/<page>', methods=['GET', 'POST'])
+def formations_edit(page):
+    allowed = {fn for fn, _ in FORMATION_PAGES}
+    if page not in allowed:
+        flash('Page non autorisée.', 'error')
+        return redirect(url_for('formations_list'))
+    label = next(lb for fn, lb in FORMATION_PAGES if fn == page)
+    if request.method == 'POST':
+        save_sections(page, request.form)
+        flash(f'"{label}" mis à jour !', 'success')
+        return redirect(url_for('formations_edit', page=page))
+    sections = get_sections(page)
+    return render_template('formations_edit.html',
+                           page=page, label=label,
+                           sections=sections,
+                           pages=FORMATION_PAGES,
+                           active='formations')
+
 
 def get_tarifs(filename):
     filepath = os.path.join(BASE_DIR, filename)
