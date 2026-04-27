@@ -276,8 +276,15 @@ async function getSha(path) {
   try { return (await apiGet(path)).sha; } catch { return null; }
 }
 
-function utf8b64(str) { return btoa(unescape(encodeURIComponent(str))); }
-function b64utf8(b64) { return decodeURIComponent(escape(atob(b64.replace(/\n/g, '')))); }
+function utf8b64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; for (const b of bytes) bin += String.fromCharCode(b);
+  return btoa(bin);
+}
+function b64utf8(b64) {
+  const bytes = Uint8Array.from(atob(b64.replace(/\n/g, '')), c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
 function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
@@ -304,7 +311,11 @@ async function loadActualites() {
   try {
     const { content } = await getFile('actualites.json');
     renderActus(JSON.parse(content));
-  } catch { renderActus([]); }
+  } catch(err) {
+    document.getElementById('actu-list').innerHTML =
+      `<p style="color:#e53935">Erreur de chargement : ${err.message}<br>
+       <small style="color:#999">Vérifiez que votre token a bien le scope <strong>repo</strong>.</small></p>`;
+  }
 }
 
 function renderActus(data) {
