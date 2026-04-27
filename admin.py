@@ -83,14 +83,17 @@ def regenerer_actualites_html():
     if not actualites:
         section = '<!-- ACTUALITES_START -->\n  <!-- ACTUALITES_END -->'
     else:
-        cards = '\n'.join(
-            f'      <div class="actu-card">\n'
-            f'        <span class="actu-date">{a["date"]}</span>\n'
-            f'        <h3>{a["titre"]}</h3>\n'
-            f'        <p>{a["texte"]}</p>\n'
-            f'      </div>'
-            for a in actualites
-        )
+        def make_card(a):
+            photo_html = f'        <img src="{a["photo"]}" class="actu-img" alt="">\n' if a.get('photo') else ''
+            return (
+                f'      <div class="actu-card">\n'
+                f'{photo_html}'
+                f'        <span class="actu-date">{a["date"]}</span>\n'
+                f'        <h3>{a["titre"]}</h3>\n'
+                f'        <p>{a["texte"]}</p>\n'
+                f'      </div>'
+            )
+        cards = '\n'.join(make_card(a) for a in actualites)
         section = (
             '<!-- ACTUALITES_START -->\n'
             '  <section class="actualites-section">\n'
@@ -228,11 +231,21 @@ def index():
 @app.route('/actualites', methods=['GET', 'POST'])
 def actualites():
     if request.method == 'POST':
+        actu_id = datetime.now().strftime('%Y%m%d%H%M%S')
+        photo = ''
+        file = request.files.get('photo')
+        if file and file.filename:
+            ext = os.path.splitext(file.filename.lower())[1]
+            if ext in {'.jpg', '.jpeg', '.png', '.webp', '.gif'}:
+                os.makedirs(os.path.join(BASE_DIR, 'actualites'), exist_ok=True)
+                file.save(os.path.join(BASE_DIR, 'actualites', actu_id + ext))
+                photo = f'actualites/{actu_id}{ext}'
         actu = {
-            'id': datetime.now().strftime('%Y%m%d%H%M%S'),
+            'id': actu_id,
             'date': request.form['date'],
             'titre': request.form['titre'],
             'texte': request.form['texte'],
+            'photo': photo,
         }
         data = load_actualites()
         data.insert(0, actu)
@@ -244,7 +257,13 @@ def actualites():
 
 @app.route('/actualites/supprimer/<actu_id>', methods=['POST'])
 def supprimer_actu(actu_id):
-    data = [a for a in load_actualites() if a['id'] != actu_id]
+    data = load_actualites()
+    for a in data:
+        if a['id'] == actu_id and a.get('photo'):
+            photo_path = os.path.join(BASE_DIR, a['photo'])
+            if os.path.exists(photo_path):
+                os.remove(photo_path)
+    data = [a for a in data if a['id'] != actu_id]
     save_actualites(data)
     flash('Actualité supprimée.', 'info')
     return redirect(url_for('actualites'))

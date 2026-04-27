@@ -4,14 +4,16 @@
 
 <div class="card">
   <h2>Ajouter une actualité</h2>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <label>Date (ex : Avril 2026)</label>
     <input type="text" name="date" placeholder="Avril 2026" required>
     <label>Titre</label>
     <input type="text" name="titre" placeholder="Achat d'une nouvelle voiturette" required>
     <label>Texte</label>
     <textarea name="texte" placeholder="Description de l'actualité..." required></textarea>
-    <button type="submit" class="btn-primary">Ajouter</button>
+    <label>Photo <span style="font-weight:400; color:#888;">(optionnelle — jpg, png, webp)</span></label>
+    <input type="file" name="photo" accept="image/*">
+    <button type="submit" class="btn-primary" style="margin-top:0.5rem;">Ajouter</button>
   </form>
 </div>
 
@@ -20,12 +22,21 @@
   {% if actualites %}
     <table style="width:100%; border-collapse:collapse;">
       <colgroup>
+        <col style="width:70px">
         <col style="width:100px">
         <col>
         <col style="width:80px">
       </colgroup>
       {% for actu in actualites %}
       <tr style="border-bottom: 1px solid #eee;">
+        <td style="padding: 0.8rem 0.5rem; vertical-align:middle; text-align:center;">
+          {% if actu.photo %}
+            <img src="/preview/{{ actu.photo }}" alt=""
+                 style="width:56px; height:42px; object-fit:cover; border-radius:4px; display:block; margin:0 auto;">
+          {% else %}
+            <span style="font-size:1.4rem; color:#ddd;">🖼️</span>
+          {% endif %}
+        </td>
         <td style="padding: 0.8rem 0.5rem; color:#888; font-size:0.82rem; vertical-align:top; white-space:nowrap;">{{ actu.date }}</td>
         <td style="padding: 0.8rem 1rem; vertical-align:top;">
           <div style="font-weight:600; margin-bottom:0.25rem;">{{ actu.titre }}</div>
