@@ -10,7 +10,9 @@
       "Bash(git config *)",
       "Bash(git push *)",
       "Bash(git pull *)",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(python -c \"import admin; admin.regenerer_actualites_html\\(\\); print\\('OK'\\)\")",
+      "Bash(gh api *)"
     ]
   }
 }
