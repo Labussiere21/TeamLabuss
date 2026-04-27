@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Back Office — Labussière F.</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --mg: #e0007a; --lime: #7fff00; --bg: #f0f0f0; --dark: #2a2a2a; --mid: #555; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--dark); }
+
+    /* ── LOGIN ── */
+    #login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-card { background: white; border-radius: 12px; padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(0,0,0,.1); text-align: center; }
+    .login-card .logo { font-size: 1.6rem; font-weight: 800; color: var(--mg); letter-spacing: 1px; margin-bottom: .25rem; }
+    .login-card p { font-size: .85rem; color: #999; margin-bottom: 1.5rem; }
+    .login-help { margin-top: 1.2rem; font-size: .78rem; color: #bbb; line-height: 1.6; }
+    .login-help a { color: var(--mg); }
+
+    /* ── NAV ── */
+    #app { display: none; }
+    #app-nav { background: var(--dark); display: flex; align-items: center; gap: .75rem; padding: 0 1.5rem; height: 54px; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { font-weight: 800; font-size: .82rem; letter-spacing: 1px; color: var(--lime); white-space: nowrap; margin-right: .5rem; }
+    .nav-tabs { display: flex; gap: .2rem; flex: 1; }
+    .nav-tab { background: none; border: none; color: rgba(255,255,255,.55); font-size: .8rem; font-weight: 600; padding: .45rem .8rem; border-radius: 4px; cursor: pointer; transition: all .15s; }
+    .nav-tab:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .nav-tab.active { background: var(--mg); color: #fff; }
+    .btn-logout { background: none; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.55); font-size: .76rem; padding: .3rem .7rem; border-radius: 4px; cursor: pointer; white-space: nowrap; }
+
+    /* ── MAIN ── */
+    #app-main { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    /* ── CARD ── */
+    .card { background: white; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .card h2 { font-size: .95rem; font-weight: 700; color: var(--dark); padding-bottom: .7rem; border-bottom: 2px solid var(--mg); margin-bottom: 1.2rem; }
+
+    /* ── FORMS ── */
+    label { display: block; font-size: .8rem; font-weight: 700; color: #666; margin: .9rem 0 .3rem; }
+    label:first-of-type { margin-top: 0; }
+    label .opt { font-weight: 400; color: #bbb; }
+    input[type=text], input[type=password], textarea, select {
+      width: 100%; padding: .52rem .8rem; border: 1.5px solid #ddd; border-radius: 6px;
+      font-size: .87rem; font-family: inherit; transition: border-color .15s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--mg); }
+    input[type=file] { font-size: .83rem; color: #666; }
+    textarea { min-height: 72px; resize: vertical; }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .52rem 1.2rem; border-radius: 6px; font-size: .85rem; font-weight: 700; border: none; cursor: pointer; transition: opacity .15s; }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary { background: var(--mg); color: #fff; }
+    .btn-danger { background: #e53935; color: #fff; font-size: .76rem; padding: .3rem .65rem; }
+    .btn-secondary { background: #eee; color: #333; }
+    .btn-success { background: #43a047; color: #fff; }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: .65rem .5rem; border-bottom: 1px solid #f0f0f0; font-size: .86rem; vertical-align: middle; }
+    th { font-size: .75rem; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* ── TARIFS ── */
+    .tg-title { font-size: .8rem; font-weight: 800; color: var(--mg); text-transform: uppercase; letter-spacing: .05em; padding: .6rem 0 .4rem; border-bottom: 1px solid #f0f0f0; margin-bottom: .5rem; }
+    .tg-row { display: grid; grid-template-columns: 1fr 110px 200px; gap: .5rem; align-items: center; padding: .35rem 0; border-bottom: 1px solid #f8f8f8; }
+    .tg-row:last-child { border-bottom: none; }
+    .tg-name { font-size: .84rem; color: #333; }
+    .tg-row input { padding: .32rem .6rem; font-size: .83rem; }
+
+    /* ── FORMATIONS ── */
+    .sec-block { border: 1px solid #eee; border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+    .sec-tag { display: inline-block; background: var(--mg); color: #fff; font-size: .7rem; font-weight: 700; padding: .15rem .55rem; border-radius: 20px; margin-bottom: .8rem; }
+
+    /* ── DOCS ── */
+    .doc-row { display: flex; align-items: center; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid #f5f5f5; }
+    .doc-row:last-child { border-bottom: none; }
+    .doc-info { flex: 1; }
+    .doc-info strong { font-size: .86rem; }
+    .doc-info span { display: block; font-size: .76rem; color: #aaa; }
+    .doc-upload-btn { position: relative; display: inline-block; background: #eee; color: #333; font-size: .8rem; font-weight: 700; padding: .38rem .9rem; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background .15s; }
+    .doc-upload-btn:hover { background: #e0e0e0; }
+    .doc-upload-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; font-size: 0; }
+
+    /* ── ACTU THUMB ── */
+    .actu-thumb { width: 52px; height: 40px; object-fit: cover; border-radius: 4px; display: block; }
+
+    /* ── TOAST ── */
+    #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; padding: .75rem 1.2rem; border-radius: 8px; font-size: .87rem; font-weight: 600; color: #fff; z-index: 9999; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    #toast.show { opacity: 1; }
+    #toast.s { background: #43a047; }
+    #toast.e { background: #e53935; }
+    #toast.i { background: #555; }
+
+    /* ── SPINNER ── */
+    .spin { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: sp .7s linear infinite; }
+    @keyframes sp { to { transform: rotate(360deg); } }
+
+    /* ── NOTICE ── */
+    .notice { background: rgba(224,0,122,.07); border-left: 3px solid var(--mg); border-radius: 4px; padding: .6rem .9rem; font-size: .82rem; color: #555; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="logo">LABUSSIÈRE ADMIN</div>
+    <p>Back office — Auto-École Labussière F.</p>
+    <form id="login-form">
+      <label>Token GitHub (Personal Access Token)</label>
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:1rem;justify-content:center">Se connecter</button>
+    </form>
+    <p class="login-help">
+      Le token est enregistré uniquement dans ce navigateur.<br>
+      <a href="https://github.com/settings/tokens/new?scopes=repo&description=Labussiere+Admin" target="_blank">
+        Créer un token GitHub →
+      </a>
+    </p>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app">
+  <nav id="app-nav">
+    <div class="nav-brand">LABUSSIÈRE</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('actualites')">Actualités</button>
+      <button class="nav-tab" onclick="showTab('tarifs')">Tarifs</button>
+      <button class="nav-tab" onclick="showTab('documents')">Documents</button>
+      <button class="nav-tab" onclick="showTab('formations')">Formations</button>
+    </div>
+    <button class="btn-logout" onclick="logout()">Déconnexion</button>
+  </nav>
+  <main id="app-main">
+
+    <!-- ACTUALITÉS -->
+    <div id="tab-actualites">
+      <div class="notice">Chaque ajout ou suppression est immédiatement publié sur le site.</div>
+      <div class="card">
+        <h2>Ajouter une actualité</h2>
+        <form id="actu-form">
+          <label>Date</label>
+          <input type="text" id="a-date" placeholder="Mai 2026" required>
+          <label>Titre</label>
+          <input type="text" id="a-titre" placeholder="Participation aux 24h de Beaune" required>
+          <label>Texte</label>
+          <textarea id="a-texte" placeholder="Description..." required></textarea>
+          <label>Photo <span class="opt">(optionnelle — jpg, png, webp)</span></label>
+          <input type="file" id="a-photo" accept="image/*">
+          <button type="submit" class="btn btn-primary" id="a-submit" style="margin-top:1rem">Ajouter</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Actualités publiées</h2>
+        <div id="actu-list"><p style="color:#ccc;font-style:italic">Chargement…</p></div>
+      </div>
+    </div>
+
+    <!-- TARIFS -->
+    <div id="tab-tarifs" style="display:none">
+      <div class="card">
+        <h2>Tarifs</h2>
+        <div id="tarifs-body"><p style="color:#ccc;font-style:italic">Chargement…</p></div>
+        <button class="btn btn-primary" id="tarifs-save" onclick="saveTarifs()" style="margin-top:1.2rem">Enregistrer tous les tarifs</button>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div id="tab-documents" style="display:none">
+      <div class="card">
+        <h2>Documents PDF</h2>
+        <div id="docs-pdf"></div>
+      </div>
+      <div class="card">
+        <h2>Certifications &amp; Labels</h2>
+        <div id="docs-certif"></div>
+      </div>
+    </div>
+
+    <!-- FORMATIONS -->
+    <div id="tab-formations" style="display:none">
+      <div class="card" style="padding-bottom:1rem">
+        <h2>Formations — sélectionnez une page</h2>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="loadFormation('voiture.html','Voiture (B)')">Voiture</button>
+          <button class="btn btn-secondary" onclick="loadFormation('moto.html','Moto')">Moto</button>
+          <button class="btn btn-secondary" onclick="loadFormation('bsr.html','AM / BSR')">AM / BSR</button>
+          <button class="btn btn-secondary" onclick="loadFormation('remorque.html','Remorque / BE')">Remorque</button>
+          <button class="btn btn-secondary" onclick="loadFormation('autre.html','Autres formations')">Autres</button>
+        </div>
+      </div>
+      <div id="formation-editor"></div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const REPO = 'Labussiere21/TeamLabuss';
+const RAW  = `https://raw.githubusercontent.com/${REPO}/main`;
+const API  = `https://api.github.com/repos/${REPO}/contents`;
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+const getToken = () => localStorage.getItem('gh_token') || '';
+
+function logout() { localStorage.removeItem('gh_token'); location.reload(); }
+
+document.getElementById('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const tok = document.getElementById('token-input').value.trim();
+  if (!tok) return;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Authorization: `token ${tok}` }
+    });
+    if (!r.ok) throw 0;
+    localStorage.setItem('gh_token', tok);
+    boot();
+  } catch { toast('Token invalide ou accès refusé.', 'e'); }
+});
+
+function boot() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadActualites();
+}
+if (getToken()) boot();
+
+// ── GitHub API ────────────────────────────────────────────────────────────────
+const headers = () => ({
+  Authorization: `token ${getToken()}`,
+  Accept: 'application/vnd.github.v3+json',
+  'Content-Type': 'application/json'
+});
+
+async function apiGet(path) {
+  const r = await fetch(`${API}/${path}`, { headers: headers() });
+  if (!r.ok) throw new Error(`${r.status} — ${path}`);
+  return r.json();
+}
+
+async function apiPut(path, content, sha, msg) {
+  const body = { message: msg, content: utf8b64(content) };
+  if (sha) body.sha = sha;
+  const r = await fetch(`${API}/${path}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+async function apiPutBin(path, buf, sha, msg) {
+  const bytes = new Uint8Array(buf);
+  let bin = ''; for (const b of bytes) bin += String.fromCharCode(b);
+  const body = { message: msg, content: btoa(bin) };
+  if (sha) body.sha = sha;
+  const r = await fetch(`${API}/${path}`, { method: 'PUT', headers: headers(), body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+async function apiDel(path, sha, msg) {
+  await fetch(`${API}/${path}`, {
+    method: 'DELETE', headers: headers(),
+    body: JSON.stringify({ message: msg, sha })
+  });
+}
+
+async function getFile(path) {
+  const d = await apiGet(path);
+  return { content: b64utf8(d.content), sha: d.sha };
+}
+
+async function getSha(path) {
+  try { return (await apiGet(path)).sha; } catch { return null; }
+}
+
+function utf8b64(str) { return btoa(unescape(encodeURIComponent(str))); }
+function b64utf8(b64) { return decodeURIComponent(escape(atob(b64.replace(/\n/g, '')))); }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+let _tt;
+function toast(msg, type='i') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `show ${type}`;
+  clearTimeout(_tt); _tt = setTimeout(() => el.className='', 3500);
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+const TABS = ['actualites','tarifs','documents','formations'];
+function showTab(name) {
+  TABS.forEach(t => document.getElementById(`tab-${t}`).style.display = t===name ? '' : 'none');
+  document.querySelectorAll('.nav-tab').forEach((b,i) => b.classList.toggle('active', TABS[i]===name));
+  if (name==='tarifs'   && !window._t) loadTarifs();
+  if (name==='documents'&& !window._d) loadDocuments();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ACTUALITÉS
+// ══════════════════════════════════════════════════════════════════════════════
+async function loadActualites() {
+  try {
+    const { content } = await getFile('actualites.json');
+    renderActus(JSON.parse(content));
+  } catch { renderActus([]); }
+}
+
+function renderActus(data) {
+  const el = document.getElementById('actu-list');
+  if (!data.length) { el.innerHTML = '<p style="color:#ccc;font-style:italic">Aucune actualité.</p>'; return; }
+  el.innerHTML = `<table>
+    <thead><tr><th></th><th>Date</th><th>Titre / Texte</th><th></th></tr></thead>
+    <tbody>${data.map(a => `<tr>
+      <td style="width:60px">${a.photo
+        ? `<img class="actu-thumb" src="${RAW}/${a.photo}?v=${Date.now()}" alt="" onerror="this.style.display='none'">`
+        : '<span style="color:#ddd;font-size:1.3rem">🖼️</span>'}</td>
+      <td style="width:110px;color:#999;font-size:.8rem;white-space:nowrap">${esc(a.date)}</td>
+      <td>
+        <div style="font-weight:700;font-size:.88rem">${esc(a.titre)}</div>
+        <div style="font-size:.8rem;color:#999">${esc(a.texte.substring(0,90))}${a.texte.length>90?'…':''}</div>
+      </td>
+      <td style="width:95px;text-align:right">
+        <button class="btn btn-danger" onclick="deleteActu('${a.id}')">Supprimer</button>
+      </td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+document.getElementById('actu-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('a-submit');
+  btn.innerHTML = '<div class="spin"></div>Envoi…'; btn.disabled = true;
+  try {
+    const id = new Date().toISOString().replace(/\D/g,'').slice(0,14);
+    let photo = '';
+
+    const imgFile = document.getElementById('a-photo').files[0];
+    if (imgFile) {
+      const ext = imgFile.name.split('.').pop().toLowerCase();
+      if (['jpg','jpeg','png','webp','gif'].includes(ext)) {
+        const sha = await getSha(`actualites/${id}.${ext}`);
+        await apiPutBin(`actualites/${id}.${ext}`, await imgFile.arrayBuffer(), sha, `Photo actualité ${id}`);
+        photo = `actualites/${id}.${ext}`;
+      }
+    }
+
+    let data = [], sha = null;
+    try { const f = await getFile('actualites.json'); data = JSON.parse(f.content); sha = f.sha; } catch {}
+    const actu = { id, date: document.getElementById('a-date').value, titre: document.getElementById('a-titre').value, texte: document.getElementById('a-texte').value, photo };
+    data.unshift(actu);
+
+    await apiPut('actualites.json', JSON.stringify(data, null, 2), sha, `Actualité : ${actu.titre}`);
+    const idx = await getFile('index.html');
+    await apiPut('index.html', regenActus(idx.content, data), idx.sha, `Actualités mise à jour`);
+
+    toast('Actualité publiée !', 's');
+    document.getElementById('actu-form').reset();
+    renderActus(data);
+  } catch(err) { toast(`Erreur : ${err.message}`, 'e'); }
+  btn.innerHTML = 'Ajouter'; btn.disabled = false;
+});
+
+async function deleteActu(id) {
+  if (!confirm('Supprimer cette actualité ?')) return;
+  try {
+    const { content, sha } = await getFile('actualites.json');
+    let data = JSON.parse(content);
+    const actu = data.find(a => a.id === id);
+    if (actu?.photo) {
+      try { const pf = await apiGet(actu.photo); await apiDel(actu.photo, pf.sha, `Suppression photo ${id}`); } catch {}
+    }
+    data = data.filter(a => a.id !== id);
+    await apiPut('actualites.json', JSON.stringify(data, null, 2), sha, `Actualité supprimée ${id}`);
+    const idx = await getFile('index.html');
+    await apiPut('index.html', regenActus(idx.content, data), idx.sha, `Actualités mise à jour`);
+    toast('Actualité supprimée.', 'i');
+    renderActus(data);
+  } catch(err) { toast(`Erreur : ${err.message}`, 'e'); }
+}
+
+function regenActus(html, data) {
+  const section = data.length === 0
+    ? '<!-- ACTUALITES_START -->\n  <!-- ACTUALITES_END -->'
+    : '<!-- ACTUALITES_START -->\n  <section class="actualites-section">\n    <h2>Actualités</h2>\n    <div class="actualites-grid">\n'
+      + data.map(a => {
+          const img = a.photo ? `        <img src="${a.photo}" class="actu-img" alt="">\n` : '';
+          return `      <div class="actu-card">\n${img}        <span class="actu-date">${a.date}</span>\n        <h3>${a.titre}</h3>\n        <p>${a.texte}</p>\n      </div>`;
+        }).join('\n')
+      + '\n    </div>\n  </section>\n  <!-- ACTUALITES_END -->';
+  return html.replace(/<!-- ACTUALITES_START -->[\s\S]*?<!-- ACTUALITES_END -->/, section);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// TARIFS
+// ══════════════════════════════════════════════════════════════════════════════
+const TARIF_PAGES = [
+  ['voiture.html','Permis Voiture (B)'],
+  ['moto.html','Permis Moto'],
+  ['remorque.html','Remorque / BE'],
+  ['bsr.html','BSR / AM'],
+  ['autre.html','Autres formations'],
+];
+let _tarifsData = {};
+
+async function loadTarifs() {
+  window._t = true;
+  const el = document.getElementById('tarifs-body');
+  el.innerHTML = '<p style="color:#ccc;font-style:italic">Chargement…</p>';
+  try {
+    const pages = await Promise.all(TARIF_PAGES.map(async ([fn, label]) => {
+      const { content, sha } = await getFile(fn);
+      const doc = new DOMParser().parseFromString(content, 'text/html');
+      const cards = [...doc.querySelectorAll('.tarif-card')].map((c, i) => ({
+        titre: c.querySelector('h4')?.textContent.trim() || `Formule ${i+1}`,
+        prix:  c.querySelector('.prix')?.textContent.trim() || '',
+        desc:  c.querySelector('.description')?.textContent.trim() || '',
+      }));
+      _tarifsData[fn] = { content, sha, cards };
+      return { fn, label, cards };
+    }));
+
+    el.innerHTML = pages.map(({ fn, label, cards }) =>
+      `<div style="margin-bottom:1.4rem">
+        <div class="tg-title">${label}</div>
+        ${cards.map((c, i) =>
+          `<div class="tg-row">
+            <div class="tg-name">${esc(c.titre)}</div>
+            <input type="text" data-fn="${fn}" data-i="${i}" data-f="prix" placeholder="Prix">
+            <input type="text" data-fn="${fn}" data-i="${i}" data-f="desc" placeholder="Description" style="font-size:.8rem;color:#666">
+          </div>`).join('')}
+      </div>`).join('');
+
+    // Set values via JS to avoid escaping issues
+    pages.forEach(({ fn, cards }) => cards.forEach((c, i) => {
+      el.querySelector(`input[data-fn="${fn}"][data-i="${i}"][data-f="prix"]`).value = c.prix;
+      el.querySelector(`input[data-fn="${fn}"][data-i="${i}"][data-f="desc"]`).value = c.desc;
+    }));
+  } catch(err) { el.innerHTML = `<p style="color:#e53935">Erreur : ${err.message}</p>`; }
+}
+
+async function saveTarifs() {
+  const btn = document.getElementById('tarifs-save');
+  btn.innerHTML = '<div class="spin"></div>Enregistrement…'; btn.disabled = true;
+  try {
+    const byFile = {};
+    document.querySelectorAll('#tarifs-body input[data-fn]').forEach(inp => {
+      const fn = inp.dataset.fn, i = +inp.dataset.i, f = inp.dataset.f;
+      if (!byFile[fn]) byFile[fn] = {};
+      if (!byFile[fn][i]) byFile[fn][i] = {};
+      byFile[fn][i][f] = inp.value;
+    });
+
+    await Promise.all(Object.entries(byFile).map(async ([fn, idx]) => {
+      const { content, sha } = _tarifsData[fn];
+      const doc = new DOMParser().parseFromString(content, 'text/html');
+      doc.querySelectorAll('.tarif-card').forEach((card, i) => {
+        if (!idx[i]) return;
+        const p = card.querySelector('.prix'), d = card.querySelector('.description');
+        if (p && idx[i].prix !== undefined) p.textContent = idx[i].prix;
+        if (d && idx[i].desc !== undefined) d.textContent = idx[i].desc;
+      });
+      const res = await apiPut(fn, '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, sha, `Tarifs mis à jour — ${fn}`);
+      _tarifsData[fn].sha = res.content.sha;
+    }));
+
+    toast('Tarifs enregistrés !', 's');
+    window._t = false; // force reload au prochain accès
+  } catch(err) { toast(`Erreur : ${err.message}`, 'e'); }
+  btn.innerHTML = 'Enregistrer tous les tarifs'; btn.disabled = false;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DOCUMENTS
+// ══════════════════════════════════════════════════════════════════════════════
+const PDF_MAP = [
+  ['TARIF_B.pdf','Tarif Permis B classique'],
+  ['TARIF_AAC.pdf','Tarif AAC (conduite accompagnée)'],
+  ['TARIF_B_AUTO.pdf','Tarif B Boîte Automatique'],
+  ['TARIF_AAC_AUTO.pdf','Tarif AAC Boîte Automatique'],
+  ['TARIF_PASSERELLE_B78.pdf','Tarif Passerelle (78h)'],
+  ['TARIF_A1.pdf','Tarif Moto A1'],
+  ['TARIF_A2.pdf','Tarif Moto A2'],
+  ['TARIF_PASSERELLE_A2_A.pdf','Tarif Passerelle A2 → A'],
+  ['TARIF_L5E.pdf','Tarif L5E (voiturette)'],
+  ['TARIF_BE.pdf','Tarif Remorque BE'],
+  ['TARIF_B96.pdf','Tarif B96'],
+  ['TARIF_AM.pdf','Tarif AM / BSR'],
+  ['reglement_intérieur.pdf','Règlement Intérieur'],
+  ['conduite_supervisée.pdf','Conduite Supervisée'],
+  ['tableau_prestations_unitaires_2025.pdf','Tableau Prestations 2025'],
+  ['enjeux_et_deroulement_permis_B.pdf','Enjeux et Déroulement Permis B'],
+  ['enjeux_et_deroulement_AAC.pdf','Enjeux et Déroulement AAC'],
+  ['enjeux_et_deroulement_formation_BE.pdf','Enjeux et Déroulement BE'],
+];
+const CERTIF_MAP = [
+  ['logo_ecole_de_conduite_0_0.png','Label École Conduite Qualité'],
+  ['mediation2.jpg','Logo Médiation'],
+  ['mobilians.jpg','Logo Mobilians'],
+  ['Picto_datadocke.jpg','Logo DataDock'],
+];
+
+function loadDocuments() {
+  window._d = true;
+  renderDocList('docs-pdf',    PDF_MAP,    ['pdf']);
+  renderDocList('docs-certif', CERTIF_MAP, ['jpg','jpeg','png','webp','gif']);
+}
+
+function renderDocList(id, map, exts) {
+  document.getElementById(id).innerHTML = map.map(([fn, label]) => `
+    <div class="doc-row">
+      <div class="doc-info">
+        <strong>${esc(label)}</strong>
+        <span>${fn}</span>
+      </div>
+      <label class="doc-upload-btn">
+        Remplacer
+        <input type="file" accept="${exts.map(e=>'.'+e).join(',')}"
+               onchange="uploadDoc('${fn}','${esc(label)}',this)">
+      </label>
+    </div>`).join('');
+}
+
+async function uploadDoc(fn, label, input) {
+  const file = input.files[0]; if (!file) return;
+  const btn = input.parentElement;
+  btn.textContent = '⏳ Envoi…';
+  try {
+    const sha = await getSha(fn);
+    await apiPutBin(fn, await file.arrayBuffer(), sha, `Document mis à jour : ${fn}`);
+    toast(`"${label}" mis à jour !`, 's');
+    btn.textContent = '✓ Remplacé';
+    btn.style.cssText = 'background:#e8f5e9;color:#2e7d32;cursor:default';
+  } catch(err) {
+    toast(`Erreur : ${err.message}`, 'e');
+    btn.textContent = 'Remplacer';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FORMATIONS
+// ══════════════════════════════════════════════════════════════════════════════
+let _fData = {};
+
+async function loadFormation(fn, label) {
+  const el = document.getElementById('formation-editor');
+  el.innerHTML = '<div class="card"><p style="color:#ccc;font-style:italic">Chargement…</p></div>';
+  try {
+    const { content, sha } = await getFile(fn);
+    _fData = { fn, sha, content };
+    const doc = new DOMParser().parseFromString(content, 'text/html');
+    const sections = [...doc.querySelectorAll('.content-section')].map((sec, i) => {
+      const h2 = sec.querySelector('h2');
+      const paras = [...sec.querySelectorAll('p')].map((p, j) => ({ j, html: p.innerHTML }));
+      return { i, title: h2?.textContent.trim() || `Section ${i+1}`, h2Html: h2?.innerHTML ?? null, paras };
+    });
+
+    el.innerHTML = `<div class="card">
+      <h2>${esc(label)}</h2>
+      <form id="f-form">
+        ${sections.map(s => `
+          <div class="sec-block">
+            <div class="sec-tag">Section ${s.i+1} — ${esc(s.title)}</div>
+            ${s.h2Html !== null ? `<label>Titre</label><input type="text" name="s${s.i}_h2" style="font-weight:700">` : ''}
+            ${s.paras.map(p => `<label>Paragraphe ${p.j+1}</label><textarea name="s${s.i}_p${p.j}" rows="${Math.max(3,Math.ceil(p.html.length/90))}"></textarea>`).join('')}
+          </div>`).join('')}
+        <button type="submit" class="btn btn-primary" id="f-save">Enregistrer ${esc(label)}</button>
+      </form>
+    </div>`;
+
+    // Valeurs via JS pour éviter les problèmes d'encodage HTML
+    sections.forEach(s => {
+      if (s.h2Html !== null) {
+        const inp = el.querySelector(`input[name="s${s.i}_h2"]`);
+        if (inp) inp.value = s.h2Html;
+      }
+      s.paras.forEach(p => {
+        const ta = el.querySelector(`textarea[name="s${s.i}_p${p.j}"]`);
+        if (ta) ta.value = p.html;
+      });
+    });
+
+    document.getElementById('f-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('f-save');
+      btn.innerHTML = '<div class="spin"></div>Enregistrement…'; btn.disabled = true;
+      try {
+        const fd = new FormData(e.target);
+        const doc2 = new DOMParser().parseFromString(_fData.content, 'text/html');
+        doc2.querySelectorAll('.content-section').forEach((sec, i) => {
+          const h2 = sec.querySelector('h2');
+          if (h2) { const v = fd.get(`s${i}_h2`); if (v !== null) h2.innerHTML = v; }
+          sec.querySelectorAll('p').forEach((p, j) => {
+            const v = fd.get(`s${i}_p${j}`); if (v !== null) p.innerHTML = v;
+          });
+        });
+        const res = await apiPut(_fData.fn, '<!DOCTYPE html>\n' + doc2.documentElement.outerHTML, _fData.sha, `Formation mise à jour — ${_fData.fn}`);
+        _fData.sha = res.content.sha;
+        toast('Formation enregistrée !', 's');
+      } catch(err) { toast(`Erreur : ${err.message}`, 'e'); }
+      btn.innerHTML = `Enregistrer ${esc(label)}`; btn.disabled = false;
+    });
+  } catch(err) {
+    el.innerHTML = `<div class="card"><p style="color:#e53935">Erreur : ${err.message}</p></div>`;
+  }
+}
+</script>
+</body>
+</html>
