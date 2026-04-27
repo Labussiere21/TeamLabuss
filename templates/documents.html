@@ -1,11 +1,67 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h1>Documents PDF</h1>
+<h1>Documents & Images</h1>
 <p style="color:#666; font-size:0.9rem; margin-bottom:1.5rem;">
-  Pour remplacer un document, sélectionnez le nouveau fichier PDF et cliquez sur <strong>Remplacer</strong>.<br>
+  Pour remplacer un fichier, sélectionnez le nouveau et cliquez sur <strong>Remplacer</strong>.<br>
   Pensez ensuite à <strong>Publier</strong> pour mettre le site à jour.
 </p>
 
+<!-- CERTIFICATIONS & LABELS -->
+<h2 style="font-size:1rem; color:#e0007a; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+  Certifications &amp; Labels — NOS ENGAGEMENTS
+</h2>
+<div class="card" style="padding:0; overflow:hidden; margin-bottom:2rem;">
+  <table style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr style="background:#f7f7f7; font-size:0.8rem; color:#888; text-transform:uppercase;">
+        <th style="text-align:left; padding:0.8rem 1.2rem; width:40%">Label / Certification</th>
+        <th style="text-align:center; padding:0.8rem 1rem; width:80px;">Aperçu</th>
+        <th style="text-align:center; padding:0.8rem 1rem; width:80px;">État</th>
+        <th style="text-align:left; padding:0.8rem 1.2rem;">Remplacer l'image</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for img in certifs %}
+      <tr style="border-top:1px solid #eee;">
+        <td style="padding:0.85rem 1.2rem;">
+          <div style="font-weight:600; font-size:0.9rem;">{{ img.label }}</div>
+          <div style="font-size:0.75rem; color:#aaa; margin-top:0.15rem;">{{ img.filename }}</div>
+        </td>
+        <td style="padding:0.5rem 1rem; text-align:center;">
+          {% if img.exists %}
+            <img src="/preview/{{ img.filename }}" style="max-height:40px; max-width:70px; object-fit:contain;">
+          {% else %}
+            <span style="color:#ccc; font-size:0.8rem;">—</span>
+          {% endif %}
+        </td>
+        <td style="padding:0.85rem 1rem; text-align:center;">
+          {% if img.exists %}
+            <span style="background:#d4edda; color:#155724; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.75rem; font-weight:600;">En ligne</span>
+          {% else %}
+            <span style="background:#f8d7da; color:#721c24; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.75rem; font-weight:600;">Manquant</span>
+          {% endif %}
+        </td>
+        <td style="padding:0.85rem 1.2rem;">
+          <form method="post" enctype="multipart/form-data"
+            style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <input type="hidden" name="pdf_key" value="{{ img.filename }}">
+            <input type="file" name="fichier" accept=".jpg,.jpeg,.png,.webp"
+              style="font-size:0.83rem;" required>
+            <button type="submit" class="btn-primary" style="white-space:nowrap; padding:0.35rem 1rem;">
+              Remplacer
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- DOCUMENTS PDF -->
+<h2 style="font-size:1rem; color:#e0007a; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em;">
+  Documents PDF
+</h2>
 <div class="card" style="padding:0; overflow:hidden;">
   <table style="width:100%; border-collapse:collapse;">
     <thead>
@@ -13,7 +69,6 @@
         <th style="text-align:left; padding:0.8rem 1.2rem;">Document</th>
         <th style="text-align:center; padding:0.8rem 1rem;">État</th>
         <th style="text-align:left; padding:0.8rem 1.2rem;">Remplacer le fichier</th>
-        <th style="padding:0.8rem 1rem;"></th>
       </tr>
     </thead>
     <tbody>

@@ -5,7 +5,7 @@ import subprocess
 import threading
 import webbrowser
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -21,6 +21,13 @@ TARIF_PAGES = [
     ('remorque.html', 'Remorque / BE'),
     ('bsr.html', 'BSR / AM'),
     ('autre.html', 'Autres formations'),
+]
+
+CERTIF_IMAGES = [
+    ('logo_ecole_de_conduite_0_0.png', 'Label École Conduite Qualité'),
+    ('mediation2.jpg',                 'Logo Médiation'),
+    ('mobilians.jpg',                  'Logo Mobilians'),
+    ('Picto_datadocke.jpg',            'Logo DataDock'),
 ]
 
 PDF_MAP = [
@@ -199,22 +206,39 @@ def tarifs():
 
 @app.route('/documents', methods=['GET', 'POST'])
 def documents():
-    pdf_labels = dict(PDF_MAP)
+    all_labels = dict(PDF_MAP) | dict(CERTIF_IMAGES)
+    image_exts = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+
     if request.method == 'POST':
-        pdf_key = request.form.get('pdf_key')
+        file_key = request.form.get('pdf_key')
         file = request.files.get('fichier')
-        if pdf_key and file and file.filename.lower().endswith('.pdf'):
-            file.save(os.path.join(BASE_DIR, pdf_key))
-            flash(f'"{pdf_labels.get(pdf_key, pdf_key)}" mis à jour !', 'success')
+        if file_key and file:
+            ext = os.path.splitext(file.filename.lower())[1]
+            expected_ext = os.path.splitext(file_key.lower())[1]
+            allowed = (ext == '.pdf') or (ext in image_exts and expected_ext in image_exts)
+            if allowed:
+                file.save(os.path.join(BASE_DIR, file_key))
+                flash(f'"{all_labels.get(file_key, file_key)}" mis à jour !', 'success')
+            else:
+                flash('Erreur : format de fichier incompatible.', 'error')
         else:
-            flash('Erreur : sélectionnez un fichier PDF valide.', 'error')
+            flash('Erreur : sélectionnez un fichier valide.', 'error')
         return redirect(url_for('documents'))
 
     pdfs = [
         {'filename': fn, 'label': lb, 'exists': os.path.exists(os.path.join(BASE_DIR, fn))}
         for fn, lb in PDF_MAP
     ]
-    return render_template('documents.html', pdfs=pdfs, active='documents')
+    certifs = [
+        {'filename': fn, 'label': lb, 'exists': os.path.exists(os.path.join(BASE_DIR, fn))}
+        for fn, lb in CERTIF_IMAGES
+    ]
+    return render_template('documents.html', pdfs=pdfs, certifs=certifs, active='documents')
+
+
+@app.route('/preview/<path:filename>')
+def preview(filename):
+    return send_from_directory(BASE_DIR, filename)
 
 
 @app.route('/publier', methods=['POST'])
