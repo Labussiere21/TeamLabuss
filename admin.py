@@ -333,6 +333,9 @@ def publier():
 
 
 if __name__ == '__main__':
-    threading.Timer(1.2, lambda: webbrowser.open('http://localhost:5000')).start()
+    try:
+        threading.Timer(1.2, lambda: webbrowser.open('http://localhost:5000')).start()
+    except Exception:
+        pass
     print('Back office sur http://localhost:5000  —  Ctrl+C pour arrêter')
-    app.run(debug=False, port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)

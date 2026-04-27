@@ -1,0 +1,12 @@
+{
+  "name": "Back Office Labussière",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "pip install flask beautifulsoup4",
+  "forwardPorts": [5000],
+  "portsAttributes": {
+    "5000": {
+      "label": "Back Office Admin",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
