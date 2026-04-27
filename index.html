@@ -151,17 +151,6 @@
       background-size: cover;
       background-position: center;
     }
-    .hero-watermark {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 1650px;
-      max-width: 90%;
-      opacity: 0.07;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-    }
 
     .hero-bg::after {
       content: '';
@@ -724,7 +713,7 @@
   <!-- NAV -->
   <nav>
     
-    <a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a>
+    <div style="display:flex;align-items:center;gap:0.7rem;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a><img src="logo.png" alt="Labussière" style="height:38px;width:auto;display:block;"></div>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="voiture.html">Voiture</a></li>
@@ -742,7 +731,6 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <img src="logo.png" class="hero-watermark" alt="">
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
       <div class="shape shape-3"></div>
