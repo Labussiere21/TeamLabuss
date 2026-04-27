@@ -227,7 +227,6 @@ function boot() {
   document.getElementById('app').style.display = 'block';
   loadActualites();
 }
-if (getToken()) boot();
 
 // ── GitHub API ────────────────────────────────────────────────────────────────
 const headers = () => ({
@@ -558,6 +557,9 @@ async function uploadDoc(fn, label, input) {
 // FORMATIONS
 // ══════════════════════════════════════════════════════════════════════════════
 let _fData = {};
+
+// Démarrage automatique — placé ici pour que toutes les fonctions soient définies
+if (getToken()) boot();
 
 async function loadFormation(fn, label) {
   const el = document.getElementById('formation-editor');
