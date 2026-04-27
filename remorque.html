@@ -306,19 +306,102 @@
     </div>
 
     <!-- INFO PTAC -->
-    <div style="background: rgba(224,0,122,0.1); border-left: 4px solid #e0007a; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto;">
-      <p style="color: #2a2a2a; line-height: 1.8; margin-bottom: 1rem;">
-        <strong>⚠️ Important - Quel permis pour votre remorque ?</strong>
-      </p>
-      <ul style="list-style: none; padding-left: 0; color: #555; line-height: 1.8;">
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis BE obligatoire</strong> si le PTAC remorque est compris entre 750 kg et 3500 kg ET la somme des PTAC de l'ensemble attelage + voiture excède 4250 kg</li>
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis B suffit</strong> si le PTAC total est inférieur à 3500 kg</li>
-        <li style="margin-bottom: 0.8rem;">✓ <strong>Permis B96 imposé</strong> si le poids de la remorque est compris entre 750 kg et 3500 kg ET l'ensemble attelage est inférieur à 4250 kg</li>
+    <div style="background: rgba(224,0,122,0.08); border-left: 4px solid #e0007a; padding: 1.5rem 2rem; border-radius: 6px; margin-bottom: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto; line-height: 1.8; color: #2a2a2a;">
+      <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 1.2rem;">⚠️ Quel permis pour votre remorque ?</p>
+
+      <p><strong style="color: var(--magenta);">Permis B suffit :</strong></p>
+      <ul style="list-style: disc; padding-left: 1.5rem; color: #555; margin-bottom: 1rem;">
+        <li>Si le PTAC remorque est ≤ 750 kg.</li>
+        <li>OU si le PTAC remorque est &gt; 750 kg, mais que la somme des PTAC (F2 voiture + F2 remorque) est ≤ 3 500 kg.</li>
       </ul>
-      <p style="color: #555; font-size: 0.9rem; margin-top: 1rem; font-style: italic;">
-        ℹ️ Vous trouverez les indications du PTAC sur le champ <strong>F2</strong> de votre carte grise.
+
+      <p><strong style="color: var(--magenta);">Formation B96 obligatoire :</strong></p>
+      <ul style="list-style: disc; padding-left: 1.5rem; color: #555; margin-bottom: 1rem;">
+        <li>Si le PTAC remorque est &gt; 750 kg ET que la somme des PTAC est comprise entre 3 501 kg et 4 250 kg.</li>
+      </ul>
+
+      <p><strong style="color: var(--magenta);">Permis BE obligatoire :</strong></p>
+      <ul style="list-style: disc; padding-left: 1.5rem; color: #555; margin-bottom: 1.2rem;">
+        <li>Si le PTAC remorque est &gt; 750 kg ET que la somme des PTAC est supérieure à 4 250 kg.</li>
+      </ul>
+
+      <p style="background: rgba(224,0,122,0.08); padding: 0.8rem 1rem; border-radius: 4px; font-size: 0.92rem; color: #555;">
+        ℹ️ <strong>Les vérifications indispensables sur votre carte grise :</strong><br>
+        <strong>Champ F2 :</strong> Masse maximale du véhicule seul (PTAC).<br>
+        <strong>Champ F3 :</strong> Masse maximale de l'ensemble (PTRA). <em>Attention : le poids total réel ne doit jamais dépasser ce chiffre, peu importe votre permis !</em>
       </p>
     </div>
+
+    <!-- CALCULATEUR PERMIS -->
+    <div style="background: var(--gray-dark); border-radius: 10px; padding: 2rem; margin-bottom: 2rem; max-width: 1100px; margin-left: auto; margin-right: auto;">
+      <h2 style="color: var(--lime); font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 0.5rem;">🧮 Quel permis me faut-il ?</h2>
+      <p style="color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; font-size: 0.92rem;">Entrez les valeurs de votre carte grise pour savoir immédiatement quel permis est nécessaire.</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem;">PTAC voiture — champ F2 (kg)</label>
+          <input id="ptac-voiture" type="number" min="0" placeholder="ex: 1850"
+            style="width: 100%; padding: 0.7rem 1rem; border-radius: 6px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 1rem;">
+        </div>
+        <div>
+          <label style="display: block; color: rgba(255,255,255,0.8); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem;">PTAC remorque — champ F2 (kg)</label>
+          <input id="ptac-remorque" type="number" min="0" placeholder="ex: 1200"
+            style="width: 100%; padding: 0.7rem 1rem; border-radius: 6px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 1rem;">
+        </div>
+      </div>
+
+      <button onclick="calculerPermis()"
+        style="background: var(--magenta); color: white; border: none; padding: 0.75rem 2rem; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s;"
+        onmouseover="this.style.background='var(--magenta-light)'" onmouseout="this.style.background='var(--magenta)'">
+        Calculer
+      </button>
+
+      <div id="resultat-permis" style="display:none; margin-top: 1.5rem; padding: 1.2rem 1.5rem; border-radius: 8px;"></div>
+    </div>
+
+    <script>
+    function calculerPermis() {
+      const pv = parseFloat(document.getElementById('ptac-voiture').value);
+      const pr = parseFloat(document.getElementById('ptac-remorque').value);
+      const res = document.getElementById('resultat-permis');
+
+      if (!pv || !pr || pv <= 0 || pr <= 0) {
+        res.style.display = 'block';
+        res.style.background = 'rgba(255,255,255,0.1)';
+        res.style.border = '2px solid rgba(255,255,255,0.3)';
+        res.innerHTML = '<strong style="color:white;">⚠️ Veuillez renseigner les deux valeurs.</strong>';
+        return;
+      }
+
+      const somme = pv + pr;
+      let titre, texte, couleur, bordure;
+
+      if (pr <= 750 || somme <= 3500) {
+        titre = '✅ Permis B suffit';
+        texte = pr <= 750
+          ? `Le PTAC de votre remorque (${pr} kg) est ≤ 750 kg : aucune formation supplémentaire requise.`
+          : `La somme des PTAC (${pv} + ${pr} = ${somme} kg) est ≤ 3 500 kg : votre permis B actuel est suffisant.`;
+        couleur = 'rgba(40,167,69,0.2)';
+        bordure = '#28a745';
+      } else if (somme <= 4250) {
+        titre = '🟡 Formation B96 obligatoire';
+        texte = `La somme des PTAC (${pv} + ${pr} = ${somme} kg) est comprise entre 3 501 et 4 250 kg : une formation B96 est nécessaire.`;
+        couleur = 'rgba(255,193,7,0.2)';
+        bordure = '#ffc107';
+      } else {
+        titre = '🔴 Permis BE obligatoire';
+        texte = `La somme des PTAC (${pv} + ${pr} = ${somme} kg) dépasse 4 250 kg : vous devez obtenir le permis BE.`;
+        couleur = 'rgba(224,0,122,0.3)';
+        bordure = '#e0007a';
+      }
+
+      res.style.display = 'block';
+      res.style.background = couleur;
+      res.style.border = `2px solid ${bordure}`;
+      res.innerHTML = `<div style="font-size:1.15rem; font-weight:700; color:white; margin-bottom:0.5rem;">${titre}</div>
+                       <div style="color:rgba(255,255,255,0.85); font-size:0.95rem;">${texte}</div>`;
+    }
+    </script>
 
     <!-- REMORQUE BE -->
     <div class="content-section">
