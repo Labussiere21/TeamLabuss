@@ -299,31 +299,24 @@
     }
 
     .formation-card {
-      background: rgba(255,255,255,0.12);
+      background: var(--gray-dark);
       border: 2px solid var(--lime);
       border-radius: 8px;
       padding: 1.5rem 1rem;
       text-align: center;
       color: var(--white);
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+      transition: background 0.2s, transform 0.2s;
       cursor: pointer;
     }
     .formation-card:hover {
-      background: rgba(255,255,255,0.22);
+      background: #3a3a3a;
       transform: translateY(-3px);
-      border-color: var(--lime);
     }
     .formation-card .icon {
-      font-size: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      background: rgba(255,255,255,0.92);
-      border-radius: 50%;
-      margin: 0 auto 0.8rem;
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 0.6rem;
     }
     .formation-card .card-icon {
       height: 60px;
@@ -331,7 +324,6 @@
       margin: 0 auto 0.6rem;
       display: block;
       object-fit: contain;
-      border-radius: 4px;
     }
     .formation-card strong {
       display: block;
