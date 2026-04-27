@@ -462,19 +462,24 @@ async function saveTarifs() {
       byFile[fn][i][f] = inp.value;
     });
 
-    await Promise.all(Object.entries(byFile).map(async ([fn, idx]) => {
-      // Toujours récupérer le SHA frais pour éviter les conflits
+    // Séquentiel obligatoire — GitHub refuse les commits parallèles sur la même branche
+    for (const [fn, idx] of Object.entries(byFile)) {
       const { content, sha } = await getFile(fn);
       const doc = new DOMParser().parseFromString(content, 'text/html');
+      let changed = false;
       doc.querySelectorAll('.tarif-card').forEach((card, i) => {
         if (!idx[i]) return;
         const p = card.querySelector('.prix'), d = card.querySelector('.description');
-        if (p && idx[i].prix !== undefined) p.textContent = idx[i].prix;
-        if (d && idx[i].desc !== undefined) d.textContent = idx[i].desc;
+        if (p && idx[i].prix !== undefined && p.textContent.trim() !== idx[i].prix) {
+          p.textContent = idx[i].prix; changed = true;
+        }
+        if (d && idx[i].desc !== undefined && d.textContent.trim() !== idx[i].desc) {
+          d.textContent = idx[i].desc; changed = true;
+        }
       });
-      const res = await apiPut(fn, '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, sha, `Tarifs mis à jour — ${fn}`);
-      _tarifsData[fn].sha = res.content.sha;
-    }));
+      if (!changed) continue;
+      await apiPut(fn, '<!DOCTYPE html>\n' + doc.documentElement.outerHTML, sha, `Tarifs mis à jour — ${fn}`);
+    }
 
     toast('Tarifs enregistrés !', 's');
     window._t = false; // force reload au prochain accès
