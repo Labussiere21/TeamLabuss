@@ -1,14 +1,16 @@
 [
   {
-    "id": "20260427140437",
-    "date": "Fevrier 2026",
-    "titre": "Nouvelle voiturette",
-    "texte": "L'Auto école Labussière s'est recemment équipée d'une voiture pour la formation AM quadricycle. Accessible dès 14 ans."
+    "id": "20260427181740",
+    "date": "Avril 2026",
+    "titre": "Participation aux 24 heures de Beaune",
+    "texte": "L'auto école Labussière participera en Mai aux 24h de Beaune avec l'auto école Saint Nicolas. RDV le 29 et 30 Mai!",
+    "photo": "actualites/20260427181740.jpg"
   },
   {
-    "id": "20260427111323",
-    "date": "Mai 2026",
-    "titre": "Participation aux 24h de Beaune",
-    "texte": "L'auto école Labussière participera en Mai aux 24h de Beaune avec l'auto école Saint Nicolas.\r\nRDV le 29 et 30 Mai!"
+    "id": "20260427181039",
+    "date": "Fevrier 2026",
+    "titre": "Nouvelle voiturette",
+    "texte": "L'Auto école Labussière s'est recemment équipée d'une voiture pour la formation AM quadricycle. Accessible dès 14 ans.",
+    "photo": "actualites/20260427181039.jpg"
   }
 ]
