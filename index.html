@@ -661,17 +661,25 @@
     }
     .actualites-grid {
       display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 0.75rem;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: var(--magenta) #eee;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
     }
-    .actualites-grid::-webkit-scrollbar { height: 4px; }
-    .actualites-grid::-webkit-scrollbar-track { background: #eee; border-radius: 2px; }
-    .actualites-grid::-webkit-scrollbar-thumb { background: var(--magenta); border-radius: 2px; }
+    @media (max-width: 700px) {
+      .actualites-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--magenta) #eee;
+        padding-bottom: 0.5rem;
+      }
+      .actualites-grid::-webkit-scrollbar { height: 4px; }
+      .actualites-grid::-webkit-scrollbar-track { background: #eee; border-radius: 2px; }
+      .actualites-grid::-webkit-scrollbar-thumb { background: var(--magenta); border-radius: 2px; }
+    }
     .actu-card {
       background: var(--gray-bg);
       border-left: 4px solid var(--magenta);
@@ -835,11 +843,11 @@
     <h2>Actualités</h2>
     <div class="actualites-grid">
       <div class="actu-card actu-card--epingle">
-        <span class="actu-epingle">📌 À la une</span>
         <img src="actualites/20260428170518.png" class="actu-img" alt="">
-        <span class="actu-date">Février 2026</span>
+        <div class="actu-meta"><span class="actu-date">Février 2026</span><span class="actu-epingle">📌 À la une</span></div>
         <h3>Nouvelle formation AM Voiturette</h3>
         <p>L'Auto école Labussière s'est recemment équipée d'une voiture pour la formation AM quadricycle. Accessible dès 14 ans.</p>
+        <span class="actu-lire">Lire la suite →</span>
       </div>
       <div class="actu-card">
         <img src="actualites/20260427181740.jpg" class="actu-img" alt="">
