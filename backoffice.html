@@ -62,7 +62,7 @@
 
     /* ── TARIFS ── */
     .tg-title { font-size: .8rem; font-weight: 800; color: var(--mg); text-transform: uppercase; letter-spacing: .05em; padding: .6rem 0 .4rem; border-bottom: 1px solid #f0f0f0; margin-bottom: .5rem; }
-    .tg-row { display: grid; grid-template-columns: 1fr 110px 200px; gap: .5rem; align-items: center; padding: .35rem 0; border-bottom: 1px solid #f8f8f8; }
+    .tg-row { display: grid; grid-template-columns: 1fr 1fr 100px; gap: .5rem; align-items: center; padding: .35rem 0; border-bottom: 1px solid #f8f8f8; }
     .tg-row:last-child { border-bottom: none; }
     .tg-name { font-size: .84rem; color: #333; }
     .tg-row input { padding: .32rem .6rem; font-size: .83rem; }
@@ -457,14 +457,15 @@ async function loadTarifs() {
         <div class="tg-title">${label}</div>
         ${cards.map((c, i) =>
           `<div class="tg-row">
-            <div class="tg-name">${esc(c.titre)}</div>
-            <input type="text" data-fn="${fn}" data-i="${i}" data-f="prix" placeholder="Prix">
+            <input type="text" data-fn="${fn}" data-i="${i}" data-f="nom" placeholder="Nom de la formule" style="font-weight:700">
             <input type="text" data-fn="${fn}" data-i="${i}" data-f="desc" placeholder="Description" style="font-size:.8rem;color:#666">
+            <input type="text" data-fn="${fn}" data-i="${i}" data-f="prix" placeholder="Prix" style="text-align:center">
           </div>`).join('')}
       </div>`).join('');
 
     // Set values via JS to avoid escaping issues
     pages.forEach(({ fn, cards }) => cards.forEach((c, i) => {
+      el.querySelector(`input[data-fn="${fn}"][data-i="${i}"][data-f="nom"]`).value  = c.titre;
       el.querySelector(`input[data-fn="${fn}"][data-i="${i}"][data-f="prix"]`).value = c.prix;
       el.querySelector(`input[data-fn="${fn}"][data-i="${i}"][data-f="desc"]`).value = c.desc;
     }));
@@ -490,7 +491,12 @@ async function saveTarifs() {
       let changed = false;
       doc.querySelectorAll('.tarif-card').forEach((card, i) => {
         if (!idx[i]) return;
-        const p = card.querySelector('.prix'), d = card.querySelector('.description');
+        const h4 = card.querySelector('h4');
+        const p  = card.querySelector('.prix');
+        const d  = card.querySelector('.description');
+        if (h4 && idx[i].nom !== undefined && h4.textContent.trim() !== idx[i].nom) {
+          h4.textContent = idx[i].nom; changed = true;
+        }
         if (p && idx[i].prix !== undefined && p.textContent.trim() !== idx[i].prix) {
           p.textContent = idx[i].prix; changed = true;
         }
@@ -592,6 +598,9 @@ async function loadFormation(fn, label) {
     _fData = { fn, sha, content };
     const doc = new DOMParser().parseFromString(content, 'text/html');
 
+    const pageH1  = doc.querySelector('.page-header h1')?.textContent.trim() || '';
+    const pageSub = doc.querySelector('.page-header p')?.textContent.trim() || '';
+
     const sections = [...doc.querySelectorAll('.content-section')].map((sec, i) => {
       const h2 = sec.querySelector('h2');
       const elems = [];
@@ -612,6 +621,11 @@ async function loadFormation(fn, label) {
     editorEl.innerHTML = `<div class="card">
       <h2>${esc(label)}</h2>
       <form id="f-form">
+        ${pageH1 ? `<div class="sec-block">
+          <div class="sec-tag">En-tête de la page</div>
+          <label>Titre principal (H1)</label><input type="text" name="page_h1" style="font-weight:700;font-size:1rem">
+          ${pageSub ? `<label>Sous-titre</label><textarea name="page_sub" rows="2"></textarea>` : ''}
+        </div>` : ''}
         ${sections.map(s => `
           <div class="sec-block">
             <div class="sec-tag">Section ${s.i+1}${s.title ? ' — ' + esc(s.title) : ''}</div>
@@ -626,6 +640,13 @@ async function loadFormation(fn, label) {
         <button type="submit" class="btn btn-primary" id="f-save">Enregistrer ${esc(label)}</button>
       </form>
     </div>`;
+
+    if (pageH1) {
+      const h1inp = editorEl.querySelector('input[name="page_h1"]');
+      if (h1inp) h1inp.value = pageH1;
+      const subta = editorEl.querySelector('textarea[name="page_sub"]');
+      if (subta) subta.value = pageSub;
+    }
 
     sections.forEach(s => {
       if (s.h2Html !== null) {
@@ -653,6 +674,10 @@ async function loadFormation(fn, label) {
       try {
         const fd = new FormData(e.target);
         const doc2 = new DOMParser().parseFromString(_fData.content, 'text/html');
+        const h1El  = doc2.querySelector('.page-header h1');
+        const subEl = doc2.querySelector('.page-header p');
+        if (h1El)  { const v = fd.get('page_h1');  if (v !== null) h1El.textContent  = v; }
+        if (subEl) { const v = fd.get('page_sub'); if (v !== null) subEl.textContent = v; }
         doc2.querySelectorAll('.content-section').forEach((sec, i) => {
           const h2 = sec.querySelector('h2');
           if (h2) { const v = fd.get(`s${i}_h2`); if (v !== null) h2.innerHTML = v; }

@@ -62,10 +62,8 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--magenta);
-      background: rgba(224,0,122,0.08);
-    }
+    .nav-links a:hover { color: var(--magenta); background: rgba(224,0,122,0.08); }
+    .nav-links a.active { color: var(--gray-dark); background: var(--lime); font-weight: 600; }
 
     .nav-cta {
       background: var(--magenta) !important;
@@ -207,7 +205,8 @@
     @media (max-width: 700px) {
       main { padding: 2rem 1rem; margin-top: 70px; }
       .page-header h1 { font-size: 1.8rem; }
-      .nav-links { display: none; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--gray-bg); padding: 1rem 2rem; border-bottom: 2px solid var(--magenta); }
+      .nav-links.open { display: flex; }
       .hamburger { display: flex; }
       .legal-section { padding: 1.5rem; }
     }
@@ -217,13 +216,14 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo"><span>AUTO-ÉCOLE</span> LABUSSIÈRE</a>
+    <div style="display:flex;align-items:center;gap:0.7rem;"><a href="index.html" class="nav-logo"><span>AUTO-ÉCOLE</span> LABUSSIÈRE</a><img src="logo.png" alt="Labussière" style="height:38px;width:auto;display:block;"></div>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="voiture.html">Voiture</a></li>
       <li><a href="moto.html">Moto</a></li>
       <li><a href="remorque.html">Remorque</a></li>
       <li><a href="bsr.html">AM/BSR</a></li>
+      <li><a href="remorque.html#calculateur">Calculateur BE</a></li>
       <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
