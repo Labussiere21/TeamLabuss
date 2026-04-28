@@ -84,16 +84,21 @@ def regenerer_actualites_html():
         section = '<!-- ACTUALITES_START -->\n  <!-- ACTUALITES_END -->'
     else:
         def make_card(a):
+            epingle = a.get('epingle', False)
+            classe = 'actu-card actu-card--epingle' if epingle else 'actu-card'
+            badge_html = '        <span class="actu-epingle">📌 À la une</span>\n' if epingle else ''
             photo_html = f'        <img src="{a["photo"]}" class="actu-img" alt="">\n' if a.get('photo') else ''
             return (
-                f'      <div class="actu-card">\n'
+                f'      <div class="{classe}">\n'
+                f'{badge_html}'
                 f'{photo_html}'
                 f'        <span class="actu-date">{a["date"]}</span>\n'
                 f'        <h3>{a["titre"]}</h3>\n'
                 f'        <p>{a["texte"]}</p>\n'
                 f'      </div>'
             )
-        cards = '\n'.join(make_card(a) for a in actualites)
+        triees = sorted(actualites, key=lambda a: (0 if a.get('epingle') else 1))
+        cards = '\n'.join(make_card(a) for a in triees)
         section = (
             '<!-- ACTUALITES_START -->\n'
             '  <section class="actualites-section">\n'
@@ -253,6 +258,20 @@ def actualites():
         flash('Actualité ajoutée !', 'success')
         return redirect(url_for('actualites'))
     return render_template('actualites.html', actualites=load_actualites(), active='actualites')
+
+
+@app.route('/actualites/epingler/<actu_id>', methods=['POST'])
+def epingler_actu(actu_id):
+    data = load_actualites()
+    for a in data:
+        if a['id'] == actu_id:
+            a['epingle'] = not a.get('epingle', False)
+        else:
+            a['epingle'] = False
+    save_actualites(data)
+    epingle = next((a.get('epingle') for a in data if a['id'] == actu_id), False)
+    flash('Actualité épinglée en tête.' if epingle else 'Actualité désépinglée.', 'info')
+    return redirect(url_for('actualites'))
 
 
 @app.route('/actualites/supprimer/<actu_id>', methods=['POST'])
