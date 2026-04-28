@@ -677,8 +677,17 @@
       border-left: 4px solid var(--magenta);
       border-radius: 6px;
       padding: 1.2rem 1.4rem;
-      flex: 0 0 calc(50% - 0.5rem);
+      flex: 0 0 300px;
       scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .actu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .actu-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
     }
     .actu-date {
       font-size: 0.72rem;
@@ -689,37 +698,91 @@
     }
     .actu-card h3 {
       color: var(--gray-dark);
-      margin: 0.35rem 0 0.5rem;
+      margin: 0 0 0.5rem;
       font-size: 1rem;
     }
     .actu-card p {
       color: var(--gray-mid);
       font-size: 0.87rem;
       line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .actu-card--epingle {
-      border-left: 4px solid var(--lime);
+    .actu-lire {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--magenta);
+      letter-spacing: 0.04em;
     }
+    .actu-card--epingle { border-left: 4px solid var(--lime); }
     .actu-epingle {
       display: inline-block;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--gray-dark);
       background: var(--lime);
-      padding: 0.15rem 0.5rem;
+      padding: 0.1rem 0.45rem;
       border-radius: 2px;
-      margin-bottom: 0.5rem;
+      white-space: nowrap;
     }
     .actu-img {
       display: block;
       width: calc(100% + 2.8rem);
-      height: 160px;
+      height: 220px;
       object-fit: cover;
       margin: -1.2rem -1.4rem 1rem;
       border-radius: 6px 6px 0 0;
     }
+    /* Modal actualité */
+    .actu-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .actu-modal-overlay.open { display: flex; }
+    .actu-modal-box {
+      background: white;
+      border-radius: 10px;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .actu-modal-close {
+      position: absolute;
+      top: 0.6rem; right: 0.6rem;
+      background: rgba(0,0,0,0.45);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 2; line-height: 1;
+    }
+    .actu-modal-photo {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+      display: block;
+    }
+    .actu-modal-body { padding: 1.4rem 1.6rem 1.8rem; }
+    .actu-modal-body h3 { font-size: 1.25rem; margin: 0.5rem 0 0.8rem; color: var(--gray-dark); }
+    .actu-modal-body p  { color: var(--gray-mid); font-size: 0.92rem; line-height: 1.65; }
   </style>
 </head>
 <body>
@@ -773,9 +836,10 @@
     <div class="actualites-grid">
       <div class="actu-card">
         <img src="actualites/20260427181740.jpg" class="actu-img" alt="">
-        <span class="actu-date">Avril 2026</span>
+        <div class="actu-meta"><span class="actu-date">Avril 2026</span></div>
         <h3>Participation aux 24 heures de Beaune</h3>
         <p>L'auto école Labussière participera en Mai aux 24h de Beaune avec l'auto école Saint Nicolas. RDV le 29 et 30 Mai!</p>
+        <span class="actu-lire">Lire la suite →</span>
       </div>
     </div>
   </section>
@@ -1032,5 +1096,43 @@
       </a>
     </div>
   </footer>  </footer>
+
+  <!-- Modal actualité -->
+  <div class="actu-modal-overlay" id="actu-modal">
+    <div class="actu-modal-box">
+      <button class="actu-modal-close" id="actu-modal-close">×</button>
+      <img class="actu-modal-photo" id="actu-modal-img" src="" alt="">
+      <div class="actu-modal-body">
+        <div class="actu-meta">
+          <span class="actu-date" id="actu-modal-date"></span>
+          <span class="actu-epingle" id="actu-modal-badge">📌 À la une</span>
+        </div>
+        <h3 id="actu-modal-titre"></h3>
+        <p id="actu-modal-texte"></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('click', function(e) {
+      const card = e.target.closest('.actu-card');
+      if (!card) return;
+      const img = card.querySelector('.actu-img');
+      const mImg = document.getElementById('actu-modal-img');
+      if (img) { mImg.src = img.src; mImg.style.display = 'block'; }
+      else { mImg.style.display = 'none'; }
+      document.getElementById('actu-modal-date').textContent  = card.querySelector('.actu-date')?.textContent || '';
+      document.getElementById('actu-modal-titre').textContent = card.querySelector('h3')?.textContent || '';
+      document.getElementById('actu-modal-texte').textContent = card.querySelector('p')?.textContent || '';
+      document.getElementById('actu-modal-badge').style.display = card.classList.contains('actu-card--epingle') ? 'inline-block' : 'none';
+      document.getElementById('actu-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('actu-modal').addEventListener('click', function(e) {
+      if (e.target === this || e.target.id === 'actu-modal-close') {
+        this.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5

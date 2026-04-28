@@ -414,9 +414,10 @@ function regenActus(html, data) {
     : '<!-- ACTUALITES_START -->\n  <section class="actualites-section">\n    <h2>Actualités</h2>\n    <div class="actualites-grid">\n'
       + triees.map(a => {
           const classe = a.epingle ? 'actu-card actu-card--epingle' : 'actu-card';
-          const badge = a.epingle ? `        <span class="actu-epingle">📌 À la une</span>\n` : '';
+          const badge = a.epingle ? '<span class="actu-epingle">📌 À la une</span>' : '';
           const img = a.photo ? `        <img src="${a.photo}" class="actu-img" alt="">\n` : '';
-          return `      <div class="${classe}">\n${badge}${img}        <span class="actu-date">${a.date}</span>\n        <h3>${a.titre}</h3>\n        <p>${a.texte}</p>\n      </div>`;
+          const meta = `        <div class="actu-meta"><span class="actu-date">${a.date}</span>${badge}</div>\n`;
+          return `      <div class="${classe}">\n${img}${meta}        <h3>${a.titre}</h3>\n        <p>${a.texte}</p>\n        <span class="actu-lire">Lire la suite →</span>\n      </div>`;
         }).join('\n')
       + '\n    </div>\n  </section>\n  <!-- ACTUALITES_END -->';
   return html.replace(/<!-- ACTUALITES_START -->[\s\S]*?<!-- ACTUALITES_END -->/, section);

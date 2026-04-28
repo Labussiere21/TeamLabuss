@@ -86,15 +86,16 @@ def regenerer_actualites_html():
         def make_card(a):
             epingle = a.get('epingle', False)
             classe = 'actu-card actu-card--epingle' if epingle else 'actu-card'
-            badge_html = '        <span class="actu-epingle">📌 À la une</span>\n' if epingle else ''
+            badge_html = '<span class="actu-epingle">📌 À la une</span>' if epingle else ''
             photo_html = f'        <img src="{a["photo"]}" class="actu-img" alt="">\n' if a.get('photo') else ''
+            meta = f'        <div class="actu-meta"><span class="actu-date">{a["date"]}</span>{badge_html}</div>\n'
             return (
                 f'      <div class="{classe}">\n'
-                f'{badge_html}'
                 f'{photo_html}'
-                f'        <span class="actu-date">{a["date"]}</span>\n'
+                f'{meta}'
                 f'        <h3>{a["titre"]}</h3>\n'
                 f'        <p>{a["texte"]}</p>\n'
+                f'        <span class="actu-lire">Lire la suite →</span>\n'
                 f'      </div>'
             )
         triees = sorted(actualites, key=lambda a: (0 if a.get('epingle') else 1))
