@@ -585,40 +585,64 @@ let _fData = {};
 if (getToken()) boot();
 
 async function loadFormation(fn, label) {
-  const el = document.getElementById('formation-editor');
-  el.innerHTML = '<div class="card"><p style="color:#ccc;font-style:italic">Chargement…</p></div>';
+  const editorEl = document.getElementById('formation-editor');
+  editorEl.innerHTML = '<div class="card"><p style="color:#ccc;font-style:italic">Chargement…</p></div>';
   try {
     const { content, sha } = await getFile(fn);
     _fData = { fn, sha, content };
     const doc = new DOMParser().parseFromString(content, 'text/html');
+
     const sections = [...doc.querySelectorAll('.content-section')].map((sec, i) => {
       const h2 = sec.querySelector('h2');
-      const paras = [...sec.querySelectorAll('p')].map((p, j) => ({ j, html: p.innerHTML }));
-      return { i, title: h2?.textContent.trim() || `Section ${i+1}`, h2Html: h2?.innerHTML ?? null, paras };
+      const elems = [];
+      let pIdx = 0, h3Idx = 0, ulIdx = 0;
+      for (const child of sec.children) {
+        const tag = child.tagName;
+        if (tag === 'H2') continue;
+        if (tag === 'H3') elems.push({ type: 'h3', idx: h3Idx++, html: child.innerHTML });
+        else if (tag === 'P') elems.push({ type: 'p', idx: pIdx++, html: child.innerHTML });
+        else if (tag === 'UL') {
+          const items = [...child.querySelectorAll('li')].map(li => li.textContent.trim());
+          elems.push({ type: 'ul', idx: ulIdx++, items });
+        }
+      }
+      return { i, title: h2?.textContent.trim() || `Section ${i+1}`, h2Html: h2?.innerHTML ?? null, elems };
     });
 
-    el.innerHTML = `<div class="card">
+    editorEl.innerHTML = `<div class="card">
       <h2>${esc(label)}</h2>
       <form id="f-form">
         ${sections.map(s => `
           <div class="sec-block">
-            <div class="sec-tag">Section ${s.i+1} — ${esc(s.title)}</div>
-            ${s.h2Html !== null ? `<label>Titre</label><input type="text" name="s${s.i}_h2" style="font-weight:700">` : ''}
-            ${s.paras.map(p => `<label>Paragraphe ${p.j+1}</label><textarea name="s${s.i}_p${p.j}" rows="${Math.max(3,Math.ceil(p.html.length/90))}"></textarea>`).join('')}
+            <div class="sec-tag">Section ${s.i+1}${s.title ? ' — ' + esc(s.title) : ''}</div>
+            ${s.h2Html !== null ? `<label>Titre de section</label><input type="text" name="s${s.i}_h2" style="font-weight:700">` : ''}
+            ${s.elems.map(elem => {
+              if (elem.type === 'h3') return `<label>Sous-titre</label><input type="text" name="s${s.i}_h3_${elem.idx}">`;
+              if (elem.type === 'p')  return `<label>Paragraphe</label><textarea name="s${s.i}_p_${elem.idx}" rows="${Math.max(2, Math.ceil(elem.html.length / 90))}"></textarea>`;
+              if (elem.type === 'ul') return `<label>Liste — une ligne par élément</label><textarea name="s${s.i}_ul_${elem.idx}" rows="${Math.max(3, elem.items.length + 1)}" style="font-size:.83rem;line-height:1.7"></textarea>`;
+              return '';
+            }).join('')}
           </div>`).join('')}
         <button type="submit" class="btn btn-primary" id="f-save">Enregistrer ${esc(label)}</button>
       </form>
     </div>`;
 
-    // Valeurs via JS pour éviter les problèmes d'encodage HTML
     sections.forEach(s => {
       if (s.h2Html !== null) {
-        const inp = el.querySelector(`input[name="s${s.i}_h2"]`);
+        const inp = editorEl.querySelector(`input[name="s${s.i}_h2"]`);
         if (inp) inp.value = s.h2Html;
       }
-      s.paras.forEach(p => {
-        const ta = el.querySelector(`textarea[name="s${s.i}_p${p.j}"]`);
-        if (ta) ta.value = p.html;
+      s.elems.forEach(elem => {
+        if (elem.type === 'h3') {
+          const inp = editorEl.querySelector(`input[name="s${s.i}_h3_${elem.idx}"]`);
+          if (inp) inp.value = elem.html;
+        } else if (elem.type === 'p') {
+          const ta = editorEl.querySelector(`textarea[name="s${s.i}_p_${elem.idx}"]`);
+          if (ta) ta.value = elem.html;
+        } else if (elem.type === 'ul') {
+          const ta = editorEl.querySelector(`textarea[name="s${s.i}_ul_${elem.idx}"]`);
+          if (ta) ta.value = elem.items.join('\n');
+        }
       });
     });
 
@@ -632,9 +656,22 @@ async function loadFormation(fn, label) {
         doc2.querySelectorAll('.content-section').forEach((sec, i) => {
           const h2 = sec.querySelector('h2');
           if (h2) { const v = fd.get(`s${i}_h2`); if (v !== null) h2.innerHTML = v; }
-          sec.querySelectorAll('p').forEach((p, j) => {
-            const v = fd.get(`s${i}_p${j}`); if (v !== null) p.innerHTML = v;
-          });
+          let pIdx = 0, h3Idx = 0, ulIdx = 0;
+          for (const child of sec.children) {
+            const tag = child.tagName;
+            if (tag === 'H2') continue;
+            if (tag === 'H3') {
+              const v = fd.get(`s${i}_h3_${h3Idx++}`); if (v !== null) child.innerHTML = v;
+            } else if (tag === 'P') {
+              const v = fd.get(`s${i}_p_${pIdx++}`); if (v !== null) child.innerHTML = v;
+            } else if (tag === 'UL') {
+              const raw = fd.get(`s${i}_ul_${ulIdx++}`);
+              if (raw !== null) {
+                const items = raw.split('\n').map(x => x.trim()).filter(Boolean);
+                child.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+              }
+            }
+          }
         });
         const res = await apiPut(_fData.fn, '<!DOCTYPE html>\n' + doc2.documentElement.outerHTML, _fData.sha, `Formation mise à jour — ${_fData.fn}`);
         _fData.sha = res.content.sha;
@@ -643,7 +680,7 @@ async function loadFormation(fn, label) {
       btn.innerHTML = `Enregistrer ${esc(label)}`; btn.disabled = false;
     });
   } catch(err) {
-    el.innerHTML = `<div class="card"><p style="color:#e53935">Erreur : ${err.message}</p></div>`;
+    editorEl.innerHTML = `<div class="card"><p style="color:#e53935">Erreur : ${err.message}</p></div>`;
   }
 }
 </script>
