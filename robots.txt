@@ -1,19 +1,7 @@
-# Robots.txt pour Auto-École Labussière F.
-
 User-agent: *
 Allow: /
-
-# Interdire l'indexation des fichiers temporaires ou de sauvegarde
+Disallow: /backoffice.html
 Disallow: /*.bak$
 Disallow: /*.tmp$
-Disallow: /tmp/
 
-# Autoriser tous les bots à explorer le site
-Allow: /*.html
-Allow: /*.pdf
-
-# Sitemap
-Sitemap: https://labussiere21.github.io/TeamLabuss/sitemap.xml
-
-# Crawler delay (optionnel - délai en secondes entre chaque requête)
-Crawl-delay: 1
+Sitemap: https://autoecolelabussiere.fr/sitemap.xml
