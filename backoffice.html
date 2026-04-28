@@ -322,19 +322,37 @@ function renderActus(data) {
   if (!data.length) { el.innerHTML = '<p style="color:#ccc;font-style:italic">Aucune actualité.</p>'; return; }
   el.innerHTML = `<table>
     <thead><tr><th></th><th>Date</th><th>Titre / Texte</th><th></th></tr></thead>
-    <tbody>${data.map(a => `<tr>
+    <tbody>${data.map(a => `<tr style="${a.epingle ? 'background:#fffde7' : ''}">
       <td style="width:60px">${a.photo
         ? `<img class="actu-thumb" src="${RAW}/${a.photo}?v=${Date.now()}" alt="" onerror="this.style.display='none'">`
         : '<span style="color:#ddd;font-size:1.3rem">🖼️</span>'}</td>
       <td style="width:110px;color:#999;font-size:.8rem;white-space:nowrap">${esc(a.date)}</td>
       <td>
-        <div style="font-weight:700;font-size:.88rem">${esc(a.titre)}</div>
+        <div style="font-weight:700;font-size:.88rem">${a.epingle ? '📌 ' : ''}${esc(a.titre)}</div>
         <div style="font-size:.8rem;color:#999">${esc(a.texte.substring(0,90))}${a.texte.length>90?'…':''}</div>
       </td>
-      <td style="width:95px;text-align:right">
+      <td style="width:120px;text-align:right">
+        <button class="btn ${a.epingle ? 'btn-success' : 'btn-secondary'}" style="font-size:.76rem;padding:.3rem .65rem;margin-bottom:.35rem;display:block;width:100%;text-align:center" onclick="pinActu('${a.id}')">
+          📌 ${a.epingle ? 'Épinglée' : 'Épingler'}
+        </button>
         <button class="btn btn-danger" onclick="deleteActu('${a.id}')">Supprimer</button>
       </td>
     </tr>`).join('')}</tbody></table>`;
+}
+
+async function pinActu(id) {
+  try {
+    const { content, sha } = await getFile('actualites.json');
+    let data = JSON.parse(content);
+    const wasPin = data.find(a => a.id === id)?.epingle;
+    data = data.map(a => ({ ...a, epingle: a.id === id ? !wasPin : false }));
+    await apiPut('actualites.json', JSON.stringify(data, null, 2), sha, `Actualité épinglée : ${id}`);
+    const idx = await getFile('index.html');
+    await apiPut('index.html', regenActus(idx.content, data), idx.sha, 'Actualités mise à jour');
+    const isPinned = data.find(a => a.id === id)?.epingle;
+    toast(isPinned ? 'Actualité épinglée en tête !' : 'Actualité désépinglée.', 's');
+    renderActus(data);
+  } catch(err) { toast(`Erreur : ${err.message}`, 'e'); }
 }
 
 document.getElementById('actu-form').addEventListener('submit', async e => {
@@ -390,12 +408,15 @@ async function deleteActu(id) {
 }
 
 function regenActus(html, data) {
+  const triees = [...data].sort((a, b) => (b.epingle ? 1 : 0) - (a.epingle ? 1 : 0));
   const section = data.length === 0
     ? '<!-- ACTUALITES_START -->\n  <!-- ACTUALITES_END -->'
     : '<!-- ACTUALITES_START -->\n  <section class="actualites-section">\n    <h2>Actualités</h2>\n    <div class="actualites-grid">\n'
-      + data.map(a => {
+      + triees.map(a => {
+          const classe = a.epingle ? 'actu-card actu-card--epingle' : 'actu-card';
+          const badge = a.epingle ? `        <span class="actu-epingle">📌 À la une</span>\n` : '';
           const img = a.photo ? `        <img src="${a.photo}" class="actu-img" alt="">\n` : '';
-          return `      <div class="actu-card">\n${img}        <span class="actu-date">${a.date}</span>\n        <h3>${a.titre}</h3>\n        <p>${a.texte}</p>\n      </div>`;
+          return `      <div class="${classe}">\n${badge}${img}        <span class="actu-date">${a.date}</span>\n        <h3>${a.titre}</h3>\n        <p>${a.texte}</p>\n      </div>`;
         }).join('\n')
       + '\n    </div>\n  </section>\n  <!-- ACTUALITES_END -->';
   return html.replace(/<!-- ACTUALITES_START -->[\s\S]*?<!-- ACTUALITES_END -->/, section);
