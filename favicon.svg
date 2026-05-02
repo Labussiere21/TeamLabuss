@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Car body -->
+  <rect x="1" y="17" width="30" height="8" rx="2.5" fill="#e0007a"/>
+  <!-- Cabin -->
+  <path d="M7 17 L10.5 10 L21.5 10 L25 17 Z" fill="#e0007a"/>
+  <!-- Windshield / windows -->
+  <path d="M12 16 L13.5 11.5 L18.5 11.5 L20 16 Z" fill="#b3e5fc" opacity="0.85"/>
+  <!-- Front bumper detail -->
+  <rect x="26" y="19" width="3" height="2" rx="1" fill="#c0006a"/>
+  <!-- Rear bumper detail -->
+  <rect x="3" y="19" width="3" height="2" rx="1" fill="#c0006a"/>
+  <!-- Front wheel -->
+  <circle cx="23" cy="25" r="4" fill="#222"/>
+  <circle cx="23" cy="25" r="1.8" fill="#888"/>
+  <!-- Rear wheel -->
+  <circle cx="9" cy="25" r="4" fill="#222"/>
+  <circle cx="9" cy="25" r="1.8" fill="#888"/>
+</svg>
