@@ -510,7 +510,18 @@
       font-weight: 600;
       text-decoration: none;
     }
-
+    .agence-map {
+      margin-top: 1.2rem;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 200px;
+    }
+    .agence-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
 
     /* ── CERTIFICATIONS ── */
     .certifications {
@@ -1147,6 +1158,9 @@
               Samedi : 14h à 15h
             </p>
           </div>
+          <div class="agence-map">
+            <iframe src="https://www.google.com/maps?q=6+Avenue+du+8+Septembre+21200+Beaune+France&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Plan agence Beaune"></iframe>
+          </div>
         </div>
         <div class="agence-card agence-card--bligny" role="img" aria-label="Vitrine de l'agence Bligny-sur-Ouche - Auto-École Labussière, 2 Route de Beaune, Bligny-sur-Ouche">
           <h3>Bligny-sur-Ouche</h3>
@@ -1164,6 +1178,9 @@
               <strong style="color: var(--magenta); font-size: 1rem;">Cours de code collectifs</strong><br>
               Sur les horaires d'ouverture du bureau
             </p>
+          </div>
+          <div class="agence-map">
+            <iframe src="https://www.google.com/maps?q=2+Route+de+Beaune+21360+Bligny-sur-Ouche+France&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Plan agence Bligny-sur-Ouche"></iframe>
           </div>
         </div>
       </div>
@@ -1421,4 +1438,7 @@
   </script>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5
+<script>
+(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;btn.addEventListener('click',function(e){e.stopPropagation();nav.classList.toggle('open');});nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('click',function(e){if(!nav.contains(e.target)&&e.target!==btn){nav.classList.remove('open');}});})();
+</script>
 <script src="cookie-banner.js"></script>
