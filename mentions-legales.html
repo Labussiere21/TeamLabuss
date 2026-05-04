@@ -220,12 +220,15 @@
       font-size: 0.8rem;
     }
 
+    @media (max-width: 900px) {
+      nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(240,240,240,0.97); }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: #f0f0f0; padding: 1rem 2rem; border-bottom: 2px solid #e0007a; max-height: calc(100vh - 64px); overflow-y: auto; -webkit-overflow-scrolling: touch; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+    }
     @media (max-width: 700px) {
       main { padding: 2rem 1rem; margin-top: 70px; }
       .page-header h1 { font-size: 1.8rem; }
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--gray-bg); padding: 1rem 2rem; border-bottom: 2px solid var(--magenta); }
-      .nav-links.open { display: flex; }
-      .hamburger { display: flex; }
       .legal-section { padding: 1.5rem; }
     }
   </style>
@@ -401,6 +404,6 @@
           <li><a href="documents.html">Documents & Infos</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
 <script>
-(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;var tapped=false;btn.addEventListener('touchstart',function(e){e.preventDefault();tapped=true;nav.classList.toggle('open');},{passive:false});btn.addEventListener('click',function(e){e.stopPropagation();if(!tapped)nav.classList.toggle('open');tapped=false;});function closeMenu(e){if(!nav.classList.contains('open'))return;if(nav.contains(e.target)||btn.contains(e.target))return;nav.classList.remove('open');}nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('touchstart',closeMenu,{passive:true});document.addEventListener('click',closeMenu);})();
+(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;btn.onclick=function(e){e.stopPropagation();nav.classList.toggle('open');};nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!nav.contains(e.target)){nav.classList.remove('open');}});})();
 </script>
 <script src="cookie-banner.js"></script>
