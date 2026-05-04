@@ -676,11 +676,27 @@
       75% { transform: translate(25px, 35px) rotate(3deg); }
     }
 
-    /* ── MOBILE ── */
-    @media (max-width: 700px) {
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--gray-bg); padding: 1rem 2rem; border-bottom: 2px solid var(--magenta); }
+    /* ── NAV MOBILE (hamburger jusqu'à 900px : iPhone paysage + iPad portrait) ── */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: var(--gray-bg);
+        padding: 1rem 2rem;
+        border-bottom: 2px solid var(--magenta);
+        max-height: calc(100svh - 64px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 99;
+      }
       .nav-links.open { display: flex; }
       .hamburger { display: flex; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 700px) {
       .hero h1 { font-size: 3.8rem; }
       .hero-car-deco { display: none; }
       
