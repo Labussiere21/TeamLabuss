@@ -669,15 +669,19 @@
       .contact-grid { grid-template-columns: 1fr !important; }
     }
 
-    /* ── PRESENTATION ── */
-    .presentation-section {
+    /* ── PRESENTATION + AGENCES two-col ── */
+    .pres-agences {
       background: var(--white);
       padding: 5rem 2rem;
       border-bottom: 3px solid var(--lime);
     }
-    .presentation-inner {
-      max-width: 900px;
+    .pres-agences-inner {
+      max-width: 1200px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 5rem;
+      align-items: start;
     }
     .presentation-body {
       display: flex;
@@ -696,6 +700,16 @@
       font-weight: 600;
     }
     .presentation-link:hover { text-decoration: underline; }
+    .agences-grid--col {
+      grid-template-columns: 1fr !important;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .pres-agences-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
 
     .actualites-section {
       padding: 2rem 2rem 1.5rem;
@@ -979,17 +993,66 @@
     </div>
   </section>
 
-  <!-- PRESENTATION -->
-  <section class="presentation-section">
-    <div class="presentation-inner">
-      <p class="section-label">Votre auto-école en Bourgogne</p>
-      <h2 class="section-title">AUTO-ÉCOLE À BEAUNE ET BLIGNY-SUR-OUCHE</h2>
-      <div class="presentation-body">
-        <p>Bienvenue à l'Auto-École La Bussière, votre partenaire de confiance pour réussir votre permis de conduire à Beaune, Bligny-sur-Ouche et dans les environs. Nous accompagnons chaque élève avec une formation personnalisée, adaptée à son rythme et à ses objectifs, dans une ambiance sérieuse et conviviale.</p>
-        <p>Notre auto-école propose un large choix de formations pour répondre à tous les besoins : <a href="voiture.html" class="presentation-link">permis voiture</a> (boîte manuelle et automatique), <a href="moto.html" class="presentation-link">permis moto</a>, <a href="remorque.html" class="presentation-link">permis remorque</a>, ainsi que la conduite de <a href="bsr.html" class="presentation-link">scooter 50cc</a> et de <a href="bsr.html" class="presentation-link">voiturette sans permis</a>. Que vous soyez débutant ou en reprise de conduite, nous mettons tout en œuvre pour vous faire progresser efficacement et en toute confiance.</p>
-        <p>Grâce à notre expérience et à un suivi rigoureux, nous affichons un taux de réussite supérieur à la moyenne nationale, gage de la qualité de notre enseignement. Nos moniteurs diplômés vous accompagnent à chaque étape, avec des conseils adaptés pour optimiser vos chances de réussite à l'examen.</p>
-        <p>Nous proposons de larges amplitudes horaires, du lundi au samedi, afin de nous adapter à votre emploi du temps. La flexibilité de nos cours, associée à la proximité de nos agences à Beaune et Bligny-sur-Ouche, vous permet de suivre votre formation dans les meilleures conditions. Situés à proximité des lycées, nous offrons également la possibilité de débuter et de terminer les leçons directement devant les établissements scolaires, pour un maximum de praticité au quotidien.</p>
-        <p>Choisir l'Auto-École La Bussière, c'est faire le choix d'un apprentissage sérieux, efficace et humain, au cœur de votre région. <strong><a href="#contact" class="presentation-link">Contactez-nous dès aujourd'hui</a></strong> pour démarrer votre formation au permis de conduire.</p>
+  <!-- PRESENTATION + AGENCES -->
+  <section class="pres-agences" id="agences">
+    <div class="pres-agences-inner">
+      <div class="pres-col">
+        <p class="section-label">Votre auto-école en Bourgogne</p>
+        <h2 class="section-title">AUTO-ÉCOLE À BEAUNE ET BLIGNY-SUR-OUCHE</h2>
+        <div class="presentation-body">
+          <p>Bienvenue à l'Auto-École La Bussière, votre partenaire de confiance pour réussir votre permis de conduire à Beaune, Bligny-sur-Ouche et dans les environs. Nous accompagnons chaque élève avec une formation personnalisée, adaptée à son rythme et à ses objectifs, dans une ambiance sérieuse et conviviale.</p>
+          <p>Notre auto-école propose un large choix de formations pour répondre à tous les besoins : <a href="voiture.html" class="presentation-link">permis voiture</a> (boîte manuelle et automatique), <a href="moto.html" class="presentation-link">permis moto</a>, <a href="remorque.html" class="presentation-link">permis remorque</a>, ainsi que la conduite de <a href="bsr.html" class="presentation-link">scooter 50cc</a> et de <a href="bsr.html" class="presentation-link">voiturette sans permis</a>. Que vous soyez débutant ou en reprise de conduite, nous mettons tout en œuvre pour vous faire progresser efficacement et en toute confiance.</p>
+          <p>Grâce à notre expérience et à un suivi rigoureux, nous affichons un taux de réussite supérieur à la moyenne nationale, gage de la qualité de notre enseignement. Nos moniteurs diplômés vous accompagnent à chaque étape, avec des conseils adaptés pour optimiser vos chances de réussite à l'examen.</p>
+          <p>Nous proposons de larges amplitudes horaires, du lundi au samedi, afin de nous adapter à votre emploi du temps. La flexibilité de nos cours, associée à la proximité de nos agences à Beaune et Bligny-sur-Ouche, vous permet de suivre votre formation dans les meilleures conditions. Situés à proximité des lycées, nous offrons également la possibilité de débuter et de terminer les leçons directement devant les établissements scolaires, pour un maximum de praticité au quotidien.</p>
+          <p>Choisir l'Auto-École La Bussière, c'est faire le choix d'un apprentissage sérieux, efficace et humain, au cœur de votre région. <strong><a href="#contact" class="presentation-link">Contactez-nous dès aujourd'hui</a></strong> pour démarrer votre formation au permis de conduire.</p>
+        </div>
+      </div>
+      <div class="agences-col">
+        <p class="section-label">Où nous trouver</p>
+        <h2 class="section-title">NOS AGENCES</h2>
+        <div class="agences-grid agences-grid--col">
+          <div class="agence-card">
+            <h3>Beaune</h3>
+            <p>
+              6, Avenue du 8 Septembre<br>
+              21200 Beaune<br><br>
+              <a href="tel:0380240299">03 80 24 02 99</a>
+            </p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
+              <strong style="color: var(--magenta); font-size: 1rem;">Ouverture du bureau</strong><br>
+              Lundi : 14h à 18h<br>
+              Mardi au Vendredi : 9h à 12h et 13h à 18h<br>
+              Samedi : 9h à 12h
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
+              <strong style="color: var(--magenta); font-size: 1rem;">Leçons de conduite</strong><br>
+              Lundi au Vendredi : 8h à 12h et 13h à 19h<br>
+              Samedi : 8h à 12h et 13h à 17h
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
+              <strong style="color: var(--magenta); font-size: 1rem;">Cours de code collectifs</strong><br>
+              Mercredi : 15h à 16h<br>
+              Vendredi : 18h à 19h<br>
+              Samedi : 14h à 15h
+            </p>
+          </div>
+          <div class="agence-card">
+            <h3>Bligny-sur-Ouche</h3>
+            <p>
+              2, Route de Beaune<br>
+              21360 BLIGNY/OUCHE<br><br>
+            </p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
+              <strong style="color: var(--magenta); font-size: 1rem;">Ouverture du bureau</strong><br>
+              Mercredi : 17h30 à 19h00<br>
+              Samedi : 9h à 11h00
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
+              <strong style="color: var(--magenta); font-size: 1rem;">Cours de code collectifs</strong><br>
+              Sur les horaires d'ouverture du bureau
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1024,57 +1087,6 @@
         <div style="color: rgba(255,255,255,0.65); font-size: 0.88rem; margin-top: 0.3rem;">Entrez les valeurs de votre carte grise — la réponse en 2 secondes.</div>
       </div>
       <a href="remorque.html#calculateur" style="display: inline-block; background: var(--lime); color: var(--gray-dark); font-weight: 700; font-size: 0.88rem; padding: 0.75rem 1.8rem; border-radius: 6px; text-decoration: none; letter-spacing: 0.5px; white-space: nowrap; transition: opacity 0.2s;">Utiliser le calculateur →</a>
-    </div>
-  </section>
-
-  <!-- AGENCES -->
-  <section class="agences" id="agences">
-    <div class="agences-inner">
-      <p class="section-label">Où nous trouver</p>
-      <h2 class="section-title">NOS AGENCES</h2>
-      <div class="agences-grid">
-        <div class="agence-card">
-          <h3>Beaune</h3>
-          <p>
-            6, Avenue du 8 Septembre<br>
-            21200 Beaune<br><br>
-            <a href="tel:0380240299">03 80 24 02 99</a>
-          </p>
-          <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
-            <strong style="color: var(--magenta); font-size: 1rem;">Ouverture du bureau</strong><br>
-            Lundi : 14h à 18h<br>
-            Mardi au Vendredi : 9h à 12h et 13h à 18h<br>
-            Samedi : 9h à 12h
-          </p>
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
-            <strong style="color: var(--magenta); font-size: 1rem;">Leçons de conduite</strong><br>
-            Lundi au Vendredi : 8h à 12h et 13h à 19h<br>
-            Samedi : 8h à 12h et 13h à 17h
-          </p>
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
-            <strong style="color: var(--magenta); font-size: 1rem;">Cours de code collectifs</strong><br>
-            Mercredi : 15h à 16h<br>
-            Vendredi : 18h à 19h<br>
-            Samedi : 14h à 15h
-          </p>
-        </div>
-        <div class="agence-card">
-          <h3>Bligny-sur-Ouche</h3>
-          <p>
-            2, Route de Beaune<br>
-            21360 BLIGNY/OUCHE<br><br>
-          </p>
-          <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
-            <strong style="color: var(--magenta); font-size: 1rem;">Ouverture du bureau</strong><br>
-            Mercredi : 17h30 à 19h00<br>
-            Samedi : 9h à 11h00
-          </p>
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-mid); line-height: 1.8;">
-            <strong style="color: var(--magenta); font-size: 1rem;">Cours de code collectifs</strong><br>
-            Sur les horaires d'ouverture du bureau
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
