@@ -451,7 +451,7 @@
     }
     .agences-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: 1fr;
       gap: 1.5rem;
       margin-top: 3rem;
     }
@@ -462,6 +462,8 @@
       position: relative;
       overflow: hidden;
       transition: border-color 0.2s;
+      columns: 2;
+      column-gap: 2.5rem;
     }
     .agence-card:hover { border-color: var(--magenta); }
     .agence-card::before {
@@ -478,6 +480,7 @@
       letter-spacing: 1px;
       color: var(--gray-dark);
       margin-bottom: 0.8rem;
+      column-span: all;
     }
     .agence-card p {
       font-size: 0.9rem;
