@@ -394,6 +394,6 @@
     </div>
     <div 
 <script>
-(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;btn.addEventListener('click',function(e){e.stopPropagation();nav.classList.toggle('open');});nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('click',function(e){if(!nav.contains(e.target)&&e.target!==btn){nav.classList.remove('open');}});})();
+(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;var tapped=false;btn.addEventListener('touchstart',function(e){e.preventDefault();tapped=true;nav.classList.toggle('open');},{passive:false});btn.addEventListener('click',function(e){e.stopPropagation();if(!tapped)nav.classList.toggle('open');tapped=false;});function closeMenu(e){if(!nav.classList.contains('open'))return;if(nav.contains(e.target)||btn.contains(e.target))return;nav.classList.remove('open');}nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('touchstart',closeMenu,{passive:true});document.addEventListener('click',closeMenu);})();
 </script>
 <script src="cookie-banner.js"></script>
