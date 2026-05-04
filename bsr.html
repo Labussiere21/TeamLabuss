@@ -486,5 +486,8 @@ Accessible dès 14 ans</p>
         </ul>
       </div>
 </div></footer>
+<script>
+(function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;btn.addEventListener('click',function(e){e.stopPropagation();nav.classList.toggle('open');});nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('click',function(e){if(!nav.contains(e.target)&&e.target!==btn){nav.classList.remove('open');}});})();
+</script>
 <script src="cookie-banner.js"></script>
 </body></html>
