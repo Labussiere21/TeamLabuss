@@ -79,9 +79,15 @@
     .nav-logo span { color: var(--gray-dark); }
 
     .nav-links {
+      position: fixed;
+      top: 0; right: 2rem;
+      height: 64px;
       display: flex;
+      align-items: center;
       gap: 0.2rem;
       list-style: none;
+      z-index: 101;
+      margin: 0; padding: 0;
     }
     .nav-links a {
       text-decoration: none;
@@ -676,21 +682,22 @@
       75% { transform: translate(25px, 35px) rotate(3deg); }
     }
 
-    /* ── NAV MOBILE (hamburger jusqu'à 900px : iPhone paysage + iPad portrait) ── */
+    /* ── NAV MOBILE (hamburger jusqu'à 900px) ── */
     @media (max-width: 900px) {
-      nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(240,240,240,0.97); }
       .nav-links {
         display: none;
         flex-direction: column;
-        position: absolute;
+        align-items: flex-start;
+        position: fixed;
         top: 64px; left: 0; right: 0;
+        height: auto;
         background: var(--gray-bg);
         padding: 1rem 2rem;
         border-bottom: 2px solid var(--magenta);
         max-height: calc(100vh - 64px);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        z-index: 99;
+        z-index: 101;
       }
       .nav-links.open { display: flex; }
       .hamburger { display: flex; }
@@ -1020,21 +1027,20 @@
 
   <!-- NAV -->
   <nav>
-    
     <div style="display:flex;align-items:center;gap:0.7rem;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a><img src="logo.png" alt="Logo Auto-École Labussière" style="height:38px;width:auto;display:block;"></div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="voiture.html">Voiture</a></li>
-      <li><a href="moto.html">Moto</a></li>
-      <li><a href="remorque.html">Remorque</a></li>
-      <li><a href="bsr.html">AM/BSR</a></li>
-      <li><a href="remorque.html#calculateur">Calculateur BE</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-    </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="voiture.html">Voiture</a></li>
+    <li><a href="moto.html">Moto</a></li>
+    <li><a href="remorque.html">Remorque</a></li>
+    <li><a href="bsr.html">AM/BSR</a></li>
+    <li><a href="remorque.html#calculateur">Calculateur BE</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
 
   <!-- HERO -->
   <section class="hero">
@@ -1455,7 +1461,6 @@
     });
   </script>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5
 <script>
 (function(){var btn=document.getElementById('hamburger');var nav=document.getElementById('navLinks');if(!btn||!nav)return;btn.onclick=function(e){e.stopPropagation();nav.classList.toggle('open');};nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');});});document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!nav.contains(e.target)){nav.classList.remove('open');}});})();
 </script>
