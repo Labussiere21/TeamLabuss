@@ -476,22 +476,9 @@
       z-index: 2;
     }
     .agence-card--beaune {
-      background-image: url('beaunevitrine.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-    .agence-card--beaune::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.45);
-      border-radius: 8px;
-      z-index: 0;
-    }
-    .agence-card--beaune h3,
-    .agence-card--beaune p {
-      position: relative;
-      z-index: 1;
+      background:
+        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
+        url('beaunevitrine.jpg') center / cover no-repeat;
     }
     .agence-card h3 {
       font-family: 'Bebas Neue', sans-serif;
