@@ -477,8 +477,13 @@
     }
     .agence-card--beaune {
       background:
-        linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
         url('beaunevitrine.jpg') center / cover no-repeat;
+    }
+    .agence-card--bligny {
+      background:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        url('blignyvitrine.jpg') center / cover no-repeat;
     }
     .agence-card h3 {
       font-family: 'Bebas Neue', sans-serif;
@@ -982,7 +987,7 @@
   <!-- NAV -->
   <nav>
     
-    <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0.7rem;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a><img src="logo.png" alt="Labussière" style="height:38px;width:auto;display:block;"></div>
+    <div style="display:flex;align-items:center;gap:0.7rem;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a><img src="logo.png" alt="Logo Auto-École Labussière" style="height:38px;width:auto;display:block;vertical-align:middle;"></div>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="voiture.html">Voiture</a></li>
@@ -1111,7 +1116,7 @@
       <p class="section-label">Où nous trouver</p>
       <h2 class="section-title">NOS AGENCES</h2>
       <div class="agences-grid">
-        <div class="agence-card agence-card--beaune">
+        <div class="agence-card agence-card--beaune" role="img" aria-label="Vitrine de l'agence Beaune - Auto-École Labussière, 6 Avenue du 8 Septembre, Beaune">
           <h3>Beaune</h3>
           <p>
             6, Avenue du 8 Septembre<br>
@@ -1136,7 +1141,7 @@
             Samedi : 14h à 15h
           </p>
         </div>
-        <div class="agence-card">
+        <div class="agence-card agence-card--bligny" role="img" aria-label="Vitrine de l'agence Bligny-sur-Ouche - Auto-École Labussière, 2 Route de Beaune, Bligny-sur-Ouche">
           <h3>Bligny-sur-Ouche</h3>
           <p>
             2, Route de Beaune<br>
