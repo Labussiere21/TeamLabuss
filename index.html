@@ -673,14 +673,10 @@
       .hero h1 { font-size: 3.8rem; }
       .hero-car-deco { display: none; }
       
-      /* Cartes formation responsive 3+1 centré */
       .formations-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
         padding: 0 1rem;
-      }
-      .formations-grid .formation-card:last-child {
-        grid-column: 2;
       }
       .formation-card {
         padding: 1rem 0.5rem;
@@ -997,8 +993,7 @@
   <!-- NAV -->
   <nav>
     
-    <div style="display:flex;align-items:center;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a></div>
-    <img src="logo.png" alt="Logo Auto-École Labussière" style="position:absolute;left:50%;transform:translateX(-50%);height:38px;width:auto;z-index:101;pointer-events:none;">
+    <div style="display:flex;align-items:center;gap:0.7rem;"><a class="nav-logo" href="index.html"><span>AUTO-ÉCOLE</span> LABUSSIÈRE F.</a><img src="logo.png" alt="Logo Auto-École Labussière" style="height:38px;width:auto;display:block;"></div>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Accueil</a></li>
       <li><a href="voiture.html">Voiture</a></li>
