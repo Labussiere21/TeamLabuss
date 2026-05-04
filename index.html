@@ -669,6 +669,34 @@
       .contact-grid { grid-template-columns: 1fr !important; }
     }
 
+    /* ── PRESENTATION ── */
+    .presentation-section {
+      background: var(--white);
+      padding: 5rem 2rem;
+      border-bottom: 3px solid var(--lime);
+    }
+    .presentation-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .presentation-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .presentation-body p {
+      font-size: 0.95rem;
+      color: var(--gray-mid);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .presentation-link {
+      color: var(--magenta);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .presentation-link:hover { text-decoration: underline; }
+
     .actualites-section {
       padding: 2rem 2rem 1.5rem;
       background: var(--white);
@@ -911,6 +939,21 @@
       <div class="hero-phone">
         <span class="dot"></span>
         <a href="tel:0380240299">03 80 24 02 99</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENTATION -->
+  <section class="presentation-section">
+    <div class="presentation-inner">
+      <p class="section-label">Votre auto-école en Bourgogne</p>
+      <h2 class="section-title">AUTO-ÉCOLE À BEAUNE ET BLIGNY-SUR-OUCHE</h2>
+      <div class="presentation-body">
+        <p>Bienvenue à l'Auto-École La Bussière, votre partenaire de confiance pour réussir votre permis de conduire à Beaune, Bligny-sur-Ouche et dans les environs. Nous accompagnons chaque élève avec une formation personnalisée, adaptée à son rythme et à ses objectifs, dans une ambiance sérieuse et conviviale.</p>
+        <p>Notre auto-école propose un large choix de formations pour répondre à tous les besoins : permis voiture (boîte manuelle et automatique), permis moto, permis remorque, ainsi que la conduite de scooter 50cc (AM) et de voiturette sans permis. Que vous soyez débutant ou en reprise de conduite, nous mettons tout en œuvre pour vous faire progresser efficacement et en toute confiance.</p>
+        <p>Grâce à notre expérience et à un suivi rigoureux, nous affichons un taux de réussite supérieur à la moyenne nationale, gage de la qualité de notre enseignement. Nos moniteurs diplômés vous accompagnent à chaque étape, avec des conseils adaptés pour optimiser vos chances de réussite à l'examen.</p>
+        <p>Nous proposons de larges amplitudes horaires, du lundi au samedi, afin de nous adapter à votre emploi du temps. La flexibilité de nos cours, associée à la proximité de nos agences à Beaune et Bligny-sur-Ouche, vous permet de suivre votre formation dans les meilleures conditions. Situés à proximité des lycées, nous offrons également la possibilité de débuter et de terminer les leçons directement devant les établissements scolaires, pour un maximum de praticité au quotidien.</p>
+        <p>Choisir l'Auto-École La Bussière, c'est faire le choix d'un apprentissage sérieux, efficace et humain, au cœur de votre région. <strong><a href="#contact" class="presentation-link">Contactez-nous dès aujourd'hui</a></strong> pour démarrer votre formation au permis de conduire.</p>
       </div>
     </div>
   </section>
