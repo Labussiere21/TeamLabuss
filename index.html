@@ -407,11 +407,10 @@
 
     .avantages-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-    }
-    .avantages-grid .avantage-item:last-child {
-      grid-column: 2;
+      max-width: 700px;
+      margin: 0 auto;
     }
     .avantage-item {
       background: var(--white);
