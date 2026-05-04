@@ -700,6 +700,60 @@
     }
     .presentation-link:hover { text-decoration: underline; }
 
+    /* ── AVIS ── */
+    .avis-section {
+      background: var(--gray-bg);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .avis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+    }
+    .avis-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      text-align: left;
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .avis-card .stars {
+      color: #f5a623;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .avis-note {
+      margin: 2.5rem auto 0;
+      max-width: 400px;
+    }
+    .avis-note p {
+      font-size: 0.85rem;
+      color: var(--gray-mid);
+      margin-top: 0.6rem;
+    }
+    .avis-note a.btn-avis {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1.8rem;
+      background: var(--magenta);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+    .avis-note a.btn-avis:hover { opacity: 0.85; }
+
     .actualites-section {
       padding: 2rem 2rem 1.5rem;
       background: var(--white);
@@ -1109,6 +1163,35 @@
           ✅ Suivi personnalisé
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- AVIS -->
+  <section class="avis-section">
+    <p class="section-label">Ce que disent nos élèves</p>
+    <h2 class="section-title">AVIS DE NOS ÉLÈVES</h2>
+    <div class="avis-grid">
+      <div class="avis-card">
+        <span class="stars">⭐⭐⭐⭐⭐</span>
+        "Tout a été parfait. Très bonne expérience du début à la fin."
+      </div>
+      <div class="avis-card">
+        <span class="stars">⭐⭐⭐⭐⭐</span>
+        "Très belle expérience avec l'auto-école, équipe à l'écoute et professionnelle. Je recommande."
+      </div>
+      <div class="avis-card">
+        <span class="stars">⭐⭐⭐⭐⭐</span>
+        "Bonne préparation pour le code et l'examen du permis, accompagnement sérieux."
+      </div>
+    </div>
+    <div class="avis-note">
+      <p style="font-size: 1rem; font-weight: 600; color: var(--gray-dark);">⭐ Note moyenne de nos élèves</p>
+      <iframe src="https://www.opinionsystem.fr/company_rating.php?company_id=12378&rating_key=30a215bf9c0fc2066f930effb89efb0c&language=fr-FR&text_color=000000"
+        scrolling="no" frameborder="0"
+        style="border: none; overflow: hidden; height: 40px; min-width: 200px; margin-top: 0.8rem;">
+      </iframe>
+      <p>Avis certifiés par Opinion System</p>
+      <a href="https://www.opinionsystem.fr/fr-fr/certificate/12378?referer=1" target="_blank" class="btn-avis">Voir tous les avis</a>
     </div>
   </section>
 
