@@ -12,7 +12,22 @@
       "Bash(git pull *)",
       "Bash(pip install *)",
       "Bash(python -c \"import admin; admin.regenerer_actualites_html\\(\\); print\\('OK'\\)\")",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(git commit *)",
+      "Bash(git stash *)",
+      "Bash(git *)",
+      "Bash(grep -E \"\\\\.\\(jpg|jpeg|png|gif\\)$\")",
+      "Bash(xargs ls *)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(ffmpeg -version)",
+      "Bash(magick -version)",
+      "Bash(convert -version)",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(npm install *)",
+      "Bash(node -e ' *)",
+      "Bash(Get-Content \"C:\\\\Users\\\\Nicolas\\\\Desktop\\\\Dev\\\\Site Labussiere\\\\voiture.html\")",
+      "Bash(Measure-Object -Line)",
+      "Bash(Select-Object -ExpandProperty Lines)"
     ]
   }
 }
